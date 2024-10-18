@@ -179,7 +179,7 @@ async function loadEvacuationCenters() {
                          redIcon;
 
             const marker = L.marker([lat, lng], { icon }).addTo(map)
-                .bindPopup(`<strong>${location.location_name}</strong><br>Evacuees: ${location.location_current_no_of_evacuue}/${location.location_max_accommodate}`);
+                .bindPopup(`<strong>${location.location_name}</strong><br><strong>${location.location_description}</strong><br>Evacuees: ${location.location_current_no_of_evacuue}/${location.location_max_accommodate}`);
 
             return { lat, lng, name: location.location_name, icon, percentage, current, max, marker };
         });

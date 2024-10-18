@@ -97,8 +97,8 @@ require_once('../../components/header.php')?>
                 <div class="col-md-6 d-flex flex-column">
                     <div class="card flex-fill">
                         <div class="card-body">
-                            <h5 class="dashboard-subtext">Total Fatal Injuries</h5>
-                            <p  class="dashboard-text m-0 text-center mt-3 mt-md-5" style="font-size: 60px"><?php echo $getTotal['active_calamities']?></p>
+                            <h5 class="dashboard-subtext">Total Active Calamity</h5>
+                            <h5  class="dashboard-text m-0 text-center mt-3 mt-md-5" style="font-size: 60px"><?php echo $getTotal['active_calamities']?></h5>
                         </div>
                     </div>
                 </div>
