@@ -1,7 +1,7 @@
 <?php 
 
 require_once('../../../controller/AnnouncementController.php');
-$activeAnnouncement = $adminService->getActiveAnnouncement();
+$activeAnnouncement = $announcementServices->getActiveAnnouncement();
 ?>
 <?php require_once('../../components/header.php')?>
 

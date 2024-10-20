@@ -2,8 +2,8 @@
 $title = "User";
 require_once('../../../controller/UserController.php');
 
-$activeCalamities = $userService->getActiveCalamity();
-$activeAnnouncement = $userService->getActiveAnnouncement();
+$activeCalamities = $calamity->getActiveCalamity();
+$activeAnnouncement = $announcement->getActiveAnnouncement();
 ?>
 
 <!DOCTYPE html>

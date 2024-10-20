@@ -1,7 +1,7 @@
 <?php
 $title = "admin";
 
-require_once('../../../controller/AdminController.php');
+require_once('../../../controller/EvacuationController.php');
 require_once('../../components/header.php')?>
 
 <div class="p-1 p-md-2">

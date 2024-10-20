@@ -177,7 +177,7 @@ require_once('../../components/header.php');
                             <strong>Description:</strong> ${locDescription} <br>
                             <strong>Current Evacuees:</strong> ${current}/${max} <br><br>
                             <div class="d-flex">
-                                <a href='update_map.php?locID=${locID}' class='btn btn-info w-100 text-white'>Change</a>
+                                <a href='update_map.php?locID=${locID}&locName=${locName}&description=${locDescription}' class='btn btn-info w-100 text-white'>Change</a>
                                 <button type="button" class="btn btn-danger w-100  mx-2 " 
                                         data-bs-toggle="modal" 
                                         data-bs-target="#deleteEvacuationModal"

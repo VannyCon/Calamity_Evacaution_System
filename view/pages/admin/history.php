@@ -1,8 +1,8 @@
 <?php 
 
-require_once('../../../controller/AdminController.php');
+require_once('../../../controller/CalamityController.php');
 
-$histories = $adminService->getNotActiveCalamity();
+$histories = $calamityService->getNotActiveCalamity();
 ?>
 <?php require_once('../../components/header.php')?>
 

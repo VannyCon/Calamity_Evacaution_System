@@ -1,8 +1,8 @@
 <?php 
 
-require_once('../../../controller/AdminController.php');
+require_once('../../../controller/EvacuationController.php');
 
-$evacautionStatus = $adminService->getEvacuationStatus();
+$evacautionStatus = $evacuationService->getEvacuationStatus();
 
 ?>
 <?php require_once('../../components/header.php')?>

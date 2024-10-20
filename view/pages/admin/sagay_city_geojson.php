@@ -1,4 +1,6 @@
 <?php
+//THIS PART RETURN JSON WHICH THE JSON USE TO MAP THE COVERAGE OF SAGAY CITY
+
 header('Content-Type: application/json');
 
 echo json_encode([

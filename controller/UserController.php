@@ -1,7 +1,10 @@
 <?php 
 
-require_once('../../../services/AdminService.php');
-
+require_once('../../../services/CalamityServices.php');
+require_once('../../../services/AnnouncementServices.php');
 // Instantiate the class from require_once('../../../services/DashboardService.php');
-$userService = new AdminServices();
+// HANDLE CONNECTION TO CalamitySERVICE WHICH IT WILL GIVE DATA TO USER
+$calamity = new CalamityServices();
+// HANDLE CONNECTION TO AnnouncementSERVICE WHICH IT WILL GIVE DATA TO USER
+$announcement= new AnnouncementServices();
 ?>

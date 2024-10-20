@@ -1,11 +1,11 @@
 <?php
 
 $title = "admin";
-require_once('../../../controller/AdminController.php'); 
+require_once('../../../controller/DashboardController.php'); 
 
-$m = $adminService->getCalamityThisYear();
-$topCalamities = $adminService->topCalamityThisYear();
-$getTotal = $adminService->getViewTotal();
+$m = $dashboardService->getCalamityThisYear();
+$topCalamities = $dashboardService->topCalamityThisYear();
+$getTotal = $dashboardService->getViewTotal();
 
 
 // Initialize the monthly data with zero counts
