@@ -46,6 +46,21 @@ class DashboardServices extends config {
             echo "Error: " . $e->getMessage();
         }
     }
+
+
+     //GET ALL THE CALAMITIES HAPPEN THIS YEAR
+     public function getAllCalamityThisYear() {
+        try {
+            $query = "SELECT `id`, `calamity_active`, `calamity_date`, `calamity_time`, `calamity_description`, `status_id`, `status_level`, `status_color`, `status_description`, `type_calamity_id`, `type_calamity_type`, `type_calamity_description` FROM `calamities_this_year` WHERE 1";
+            $stmt = $this->pdo->prepare($query); // Prepare the query
+            $stmt->execute(); // Execute the query
+            $calamities =  $stmt->fetchAll(PDO::FETCH_ASSOC); // Fetch the result
+        
+            return  $calamities;// Outputs locations as JSON
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    }
     
    //////////////////////// DASHBOARD FUNCTION //////////////////////////////
     

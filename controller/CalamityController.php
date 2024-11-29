@@ -31,12 +31,13 @@ $error_message = '';
         //CATCH FORM INPUT
         $calamity_date = $_POST['date'];
         $calamity_time = $_POST['time'];
+        $calamity_description = $_POST['description'];
         $calamity_type_id = $_POST['type'];
         $calamity_status_id = $_POST['status'];
 
         // HANDLE CREATE
         if ($_POST['action'] == 'createCalamity') {
-            $status = $calamityService->createCalamity($calamity_type_id, $calamity_status_id, $calamity_date, $calamity_time);
+            $status = $calamityService->createCalamity($calamity_type_id, $calamity_status_id, $calamity_description, $calamity_date, $calamity_time);
             if ($status == true) {
                 header("Location: calamity.php");
                 exit();
@@ -45,7 +46,7 @@ $error_message = '';
         } else if ($_POST['action'] == 'updateCalamity') {
             $id = $_POST['id'];
             $calamity_active = isset($_POST['active']) ? 1 : 0;
-            $status = $calamityService->updateCalamity($id, $calamity_type_id, $calamity_status_id, $calamity_active, $calamity_date, $calamity_time);
+            $status = $calamityService->updateCalamity($id, $calamity_type_id, $calamity_status_id, $calamity_description, $calamity_active, $calamity_date, $calamity_time);
             if ($status == true) {
                 header("Location: calamity.php");
                 exit();

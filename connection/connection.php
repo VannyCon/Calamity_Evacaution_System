@@ -41,17 +41,18 @@ class config {
         }
         return $data;
     }
-
-    // remove the seasion so it will redirect the user to login
-    function logout(){
+    // Remove specific session variables so it will redirect the user to login
+    public function logout() {
         session_start();
-        // Unset all session variables
-        $_SESSION = array();
-        // Destroy the session
-        session_destroy();
+        // Unset specific session variables
+        unset($_SESSION['fullname']);
+        unset($_SESSION['username']);
+        // Redirect to the login page
         header("Location: index.php");
         return true;
     }
+
+
 }
 
 

@@ -2,10 +2,10 @@
 
 session_start();
 // check if the evacuation is already log in then it will go to index.php
-if (!isset($_SESSION['username'])) {
-    header("Location: ../../../index.php");
-    exit();
-}
+// if (!isset($_SESSION['username'])) {
+//     header("Location: ../../../index.php");
+//     exit();
+// }
 // check if the evacuation is already log in then it will go to index.php
 
     // import evacuation services

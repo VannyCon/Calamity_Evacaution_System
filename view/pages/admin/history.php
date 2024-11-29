@@ -71,12 +71,27 @@ $histories = $calamityService->getNotActiveCalamity();
                                 <td><?php echo htmlspecialchars($history['type_calamity_type']); ?></td>
                                 <td><?php echo htmlspecialchars($history['status_level']); ?></td>
                                 <td><?php echo htmlspecialchars($history['status_color']); ?></td>
-                                <td><button type="button" class="btn btn-info mx-0 mx-md-2 my-1 my-md-0" 
-                                        data-bs-toggle="modal" 
-                                        data-bs-target="#reactiveModal"
-                                        data-bs-id="<?php echo htmlspecialchars($history['id']); ?>">
-                                        Reactive
-                                </button></td>
+                                <td>
+                                    <?php 
+                                    $datenow = new DateTime('now'); 
+                                    // Compare formatted dates as strings
+                                    if ($date->format('F j, Y') == $datenow->format('F j, Y')) {
+                                    ?>
+                                        <button type="button" class="btn btn-info mx-0 mx-md-2 my-1 my-md-0" 
+                                                data-bs-toggle="modal" 
+                                                data-bs-target="#reactiveModal"
+                                                data-bs-id="<?php echo htmlspecialchars($history['id']); ?>">
+                                                Reactive
+                                        </button>
+                                    <?php 
+                                    } else {
+                                    ?>
+                                        <p>Unavailable</p>
+                                    <?php 
+                                    }
+                                    ?>
+                                </td>
+
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>

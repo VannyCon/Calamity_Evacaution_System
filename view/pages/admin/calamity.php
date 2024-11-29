@@ -6,7 +6,58 @@ $activeCalamities = $calamityService->getActiveCalamity();
 
 ?>
 <?php require_once('../../components/header.php')?>
+<style>
+    .green {
+    background-color: #4CAF50; /* Green */
+    color: white;
+    }
 
+    .yellow {
+        background-color: #FFEB3B; /* Yellow */
+        color: black;
+    }
+
+    .yellowgreen {
+        background-color: #9CCC65; /* YellowGreen */
+        color: white;
+    }
+
+    .table-orange {
+        background-color: #FF9800; /* Orange */
+        color: white;
+    }
+
+    .red {
+        background-color: #F44336; /* Red */
+        color: white;
+    }
+    .table-orange{
+        --bs-table-color:#000;
+        --bs-table-bg:#f6be91;
+        --bs-table-border-color:#b9b3a7;
+        --bs-table-striped-bg:#dbd0c7;
+        --bs-table-striped-color:#000;
+        --bs-table-active-bg:#d0c8bc;
+        --bs-table-active-color:#000;
+        --bs-table-hover-bg:#d6ccc1;
+        --bs-table-hover-color:#000;
+        color:var(--bs-table-color);
+        border-color:var(--bs-table-border-color)
+    }
+    .table-yellowgreen{
+        --bs-table-color:#000;
+        --bs-table-bg:#cfe868;
+        --bs-table-border-color:#b6b9a7;
+        --bs-table-striped-bg:#d8dbc7;
+        --bs-table-striped-color:#000;
+        --bs-table-active-bg:#ccd0bc;
+        --bs-table-active-color:#000;
+        --bs-table-hover-bg:#d5d6c1;
+        --bs-table-hover-color:#000;
+        color:var(--bs-table-color);
+        border-color:var(--bs-table-border-color)
+    }
+</style>
 <div class="p-0 p-md-5">
 
     <div class="p-4">
@@ -32,6 +83,7 @@ $activeCalamities = $calamityService->getActiveCalamity();
                         <th>Type Of Calamity</th>
                         <th>Level</th>
                         <th>Color</th>
+                        <th>Description</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -40,31 +92,51 @@ $activeCalamities = $calamityService->getActiveCalamity();
                         <?php foreach ($activeCalamities  as $calamity): ?>
                             <!-- table row highlight base on the current and max of the specific evacuation -->
                             
-                            <tr>
+                            <tr class="
+                            <?php 
+                                if($calamity['status_color'] == 'Green') {
+                                    echo "table-success";
+                                }else if($calamity['status_color'] == 'YellowGreen') {
+                                    echo "table-yellowgreen";
+                                }else if($calamity['status_color'] == 'Yellow') {
+                                    echo "table-warning";
+                                }else if($calamity['status_color'] == 'Orange') {
+                                    echo "table-orange";
+                                }else if($calamity['status_color'] == 'Red') {
+                                    echo "table-danger";
+                                }
+                            ?>
+                            
+                           ">
                                 <td><?php
                                     $date = new DateTime($calamity['calamity_date']);
-                                    echo $date->format('F j, Y')?>
-                                </td>
+                                    echo $date->format('F j, Y');
+                                ?></td>
                                 <td><?php
                                     $time = new DateTime($calamity['calamity_time']);
-                                    echo $time->format('g:i A')?>
-                                </td>
+                                    echo $time->format('g:i A');
+                                ?></td>
                                 <td><?php echo htmlspecialchars($calamity['type_calamity_type']); ?></td>
                                 <td><?php echo htmlspecialchars($calamity['status_level']); ?></td>
                                 <td><?php echo htmlspecialchars($calamity['status_color']); ?></td>
-                                <td><button type="button" class="btn btn-info mx-0 mx-md-2 my-1 my-md-0" 
-                                        data-bs-toggle="modal" 
-                                        data-bs-target="#calamityModal"
-                                        data-bs-id="<?php echo htmlspecialchars($calamity['id']); ?>"
-                                        data-bs-calamity_date="<?php echo htmlspecialchars($calamity['calamity_date']); ?>"
-                                        data-bs-calamity_time="<?php echo htmlspecialchars($calamity['calamity_time']); ?>"
-                                        data-bs-type_calamity_type="<?php echo htmlspecialchars($calamity['type_calamity_id']); ?>"
-                                        data-bs-status_level="<?php echo htmlspecialchars($calamity['status_id']); ?>"
-                                        data-bs-calamity_active="<?php echo htmlspecialchars($calamity['calamity_active']); ?>"
-                                        data-bs-action="update">
+                                <td><?php echo htmlspecialchars($calamity['calamity_description']); ?></td>
+                                <td>
+                                    <button type="button" class="btn btn-info mx-0 mx-md-2 my-1 my-md-0" 
+                                            data-bs-toggle="modal" 
+                                            data-bs-target="#calamityModal"
+                                            data-bs-id="<?php echo htmlspecialchars($calamity['id']); ?>"
+                                            data-bs-calamity_date="<?php echo htmlspecialchars($calamity['calamity_date']); ?>"
+                                            data-bs-calamity_description="<?php echo htmlspecialchars($calamity['calamity_description']); ?>"
+                                            data-bs-calamity_time="<?php echo htmlspecialchars($calamity['calamity_time']); ?>"
+                                            data-bs-type_calamity_type="<?php echo htmlspecialchars($calamity['type_calamity_id']); ?>"
+                                            data-bs-status_level="<?php echo htmlspecialchars($calamity['status_id']); ?>"
+                                            data-bs-calamity_active="<?php echo htmlspecialchars($calamity['calamity_active']); ?>"
+                                            data-bs-action="update">
                                         Update
-                                </button></td>
+                                    </button>
+                                </td>
                             </tr>
+
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
@@ -82,7 +154,7 @@ $activeCalamities = $calamityService->getActiveCalamity();
     </div>
 </div>
 
-<!-- Modal for Updating Pest Info -->
+<!-- Calamity Modal-->
 <div class="modal fade" id="calamityModal" tabindex="-1" role="dialog" aria-labelledby="calamityModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -107,17 +179,20 @@ $activeCalamities = $calamityService->getActiveCalamity();
                             <option value="TYPE-004">Landslide</option>
                             <option value="TYPE-005">Drought</option>
                         </select>
-                        <label for="status">Status</label>
+                        <label for="description">Description</label>
+                        <input type="text" class="form-control" id="description" name="description" required>
+                        <label for="status">Level</label>
                         <select class="form-select" name="status" id="status" required>
-                            <option value="" selected disabled>Choose a status</option>
+                            <option value="" selected disabled>Choose a level</option>
                             <option value="Lvl-1">Level 1 Green</option>
                             <option value="Lvl-2">Level 2 YellowGreen</option>
                             <option value="Lvl-3">Level 3 Yellow</option>
                             <option value="Lvl-4">Level 4 Orange</option>
                             <option value="Lvl-5">Level 5 Red</option>
                         </select>
-                        <label for="max">Active</label>
-                        <div class="form-check form-switch">
+                        <br>
+                        <label for="flexSwitchCheckChecked" id="activeLabel">Active</label>
+                        <div class="form-check form-switch" id="activeCheckboxContainer">
                             <input style="width: 50px; height: 30px; cursor: pointer" class="form-check-input" name="active" type="checkbox" id="flexSwitchCheckChecked" checked>
                         </div>
                     </div>
@@ -149,10 +224,16 @@ $activeCalamities = $calamityService->getActiveCalamity();
                 modal.find('.modal-body input').val(''); 
                 modal.find('#type').val("").trigger('change');
                 modal.find('#status').val("").trigger('change');
-                modal.find('#flexSwitchCheckChecked').prop('checked', true).prop('disabled', true).val("1");
+                
+                // Hide the active checkbox in the "Create" modal
+                modal.find('#activeCheckboxContainer').hide();
+                modal.find('#activeLabel').hide();
+                // Ensure checkbox is disabled and unchecked
+                modal.find('#flexSwitchCheckChecked').prop('checked', false).prop('disabled', true).val("0");
             } else if (action === 'update') {
                 var id = button.data('bs-id');
                 var isActive = button.data('bs-calamity_active');
+                var description = button.data('bs-calamity_description');
                 var date = button.data('bs-calamity_date');
                 var time = button.data('bs-calamity_time');
                 var type = button.data('bs-type_calamity_type');
@@ -164,10 +245,16 @@ $activeCalamities = $calamityService->getActiveCalamity();
                 modal.find('#modalTypeTitle').text('Update');
                 modal.find('#id').val(id);
                 modal.find('#date').val(date);
+                modal.find('#description').val(description);
                 modal.find('#time').val(time);
                 modal.find('#type').val(type).trigger('change'); 
                 modal.find('#status').val(status).trigger('change'); 
                 modal.find('#actionType').val("updateCalamity");
+                
+                // Show the active checkbox in the "Update" modal
+                modal.find('#activeCheckboxContainer').show();
+                
+                // Set the checkbox state based on `isActive`
                 modal.find('#flexSwitchCheckChecked').prop('checked', isActive).prop('disabled', false).val(isActive);
             }
         });

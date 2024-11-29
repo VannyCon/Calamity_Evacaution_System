@@ -1,5 +1,5 @@
 <?php 
-    include_once('controller/LoginController.php');
+   include_once('../../../controller/FacilitatorController.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,10 +18,12 @@
                   <div class="card shadow-2-strong" style="border-radius: 1rem;">
                     <div class="card-body p-4 text-left">
                       <div class="text-center">
-                          <img src="assets/images/logo.png" alt="" srcset="" width="auto" height="150">
+                          <img src="../../../assets/images/logo.png" alt="" srcset="" width="auto" height="150">
                           <br>
-                          <span class="badge badge-danger mt-1 p-2">Admin</span>
-                        </div>
+
+                          <span class="badge badge-warning mt-1 p-2">Facilitator</span>
+                      </div>
+                      
                           <form action="" method="post">
                               <div data-mdb-input-init class="form-outline mb-2">
                               <?php if (isset($_GET['error'])): ?>
@@ -42,12 +44,9 @@
                                   <input class="form-check-input" type="checkbox" value="" id="form1Example3" />
                                   <label class="form-check-label" for="form1Example3"> Remember password </label>
                                   </div>
-
                                   <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
                           </form>
-                          <p class="my-2 text-center">or</p>
-                          <a href="view/pages/facilitator/index.php" class="btn btn-outline-warning py-3 btn-block">Facilitator</a>
-                    </div>
+                         </div>
                   </div>
                 </div>
               </div>
@@ -55,7 +54,7 @@
           </section>
       </div>
   <?php 
-      include_once('view/components/footer.php');
+      include_once('../../../view/components/footer.php');
   ?>
 </body>
 </html>

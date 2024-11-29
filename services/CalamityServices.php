@@ -12,6 +12,7 @@ class CalamityServices extends config {
                             c.calamity_active,
                             c.calamity_date,
                             c.calamity_time,
+                            c.calamity_description,
                             cs.status_id,
                             cs.status_level,
                             cs.status_color,
@@ -32,6 +33,8 @@ class CalamityServices extends config {
                             ON c.calamity_type_id = tc.type_calamity_id
                         WHERE
                             c.calamity_active = 1
+                        ORDER BY
+                            c.calamity_date DESC
                         ";
             $stmt = $this->pdo->prepare($query); // Prepare the query
             $stmt->execute(); // Execute the query
@@ -50,6 +53,7 @@ class CalamityServices extends config {
                             c.calamity_active,
                             c.calamity_date,
                             c.calamity_time,
+                            c.calamity_description,
                             cs.status_level,
                             cs.status_color,
                             cs.status_description,
@@ -68,6 +72,8 @@ class CalamityServices extends config {
                             ON c.calamity_type_id = tc.type_calamity_id
                         WHERE
                             c.calamity_active = 0
+                        ORDER BY
+                            c.calamity_date DESC
                         ";
             $stmt = $this->pdo->prepare($query); // Prepare the query
             $stmt->execute(); // Execute the query
@@ -102,18 +108,19 @@ class CalamityServices extends config {
     }
 
     // THIS FUNCTION HANDLE TO UPDATE THE CALAMITY
-    public function createCalamity($calamity_type_id, $calamity_status_id, $calamity_date, $calamity_time) {
+    public function createCalamity($calamity_type_id, $calamity_status_id, $calamity_description, $calamity_date, $calamity_time) {
         try {
 
             $calamityID = $this->generateCalamityID();
             $query = "INSERT INTO `tbl_calamity` 
-                        (`calamity_id`, `calamity_type_id`, `calamity_status_id`, `calamity_active`, `calamity_date`, `calamity_time`) 
+                        (`calamity_id`, `calamity_type_id`, `calamity_status_id`, `calamity_description`, `calamity_active`, `calamity_date`, `calamity_time`) 
                         VALUES  
-                        (:calamityID, :calamity_type_id, :calamity_status_id, 1,:calamity_date, :calamity_time)";
+                        (:calamityID, :calamity_type_id, :calamity_status_id, :calamity_description, 1,:calamity_date, :calamity_time)";
             $stmt = $this->pdo->prepare($query); // Prepare the query
             $stmt->bindParam(':calamityID', $calamityID);
             $stmt->bindParam(':calamity_type_id', $calamity_type_id);
             $stmt->bindParam(':calamity_status_id', $calamity_status_id);
+            $stmt->bindParam(':calamity_description', $calamity_description);
             $stmt->bindParam(':calamity_date', $calamity_date);
             $stmt->bindParam(':calamity_time', $calamity_time);
             $stmt->execute(); // Execute the query
@@ -125,13 +132,14 @@ class CalamityServices extends config {
         
     }
     // THIS FUNCTION HANDLE TO UPDATE THE CALAMITY
-    public function updateCalamity($id, $calamity_type_id, $calamity_status_id, $calamity_active, $calamity_date, $calamity_time) {
+    public function updateCalamity($id, $calamity_type_id, $calamity_status_id, $calamity_description, $calamity_active, $calamity_date, $calamity_time) {
         try {
-            $query = "UPDATE `tbl_calamity` SET `calamity_type_id`= :calamity_type_id,`calamity_status_id`=:calamity_status_id,`calamity_active`=:calamity_active,`calamity_date`=:calamity_date,`calamity_time`=:calamity_time WHERE id=:id";
+            $query = "UPDATE `tbl_calamity` SET `calamity_type_id`= :calamity_type_id,`calamity_status_id`=:calamity_status_id, `calamity_description`=:calamity_description,`calamity_active`=:calamity_active,`calamity_date`=:calamity_date,`calamity_time`=:calamity_time WHERE id=:id";
             $stmt = $this->pdo->prepare($query); // Prepare the query
             $stmt->bindParam(':id', $id);
             $stmt->bindParam(':calamity_type_id', $calamity_type_id);
             $stmt->bindParam(':calamity_status_id', $calamity_status_id);
+            $stmt->bindParam(':calamity_description', $calamity_description);
             $stmt->bindParam(':calamity_active', $calamity_active);
             $stmt->bindParam(':calamity_date', $calamity_date);
             $stmt->bindParam(':calamity_time', $calamity_time);

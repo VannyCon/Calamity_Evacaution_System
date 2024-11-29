@@ -66,7 +66,8 @@ $activeAnnouncement = $announcement->getActiveAnnouncement();
                                         </div>
                                         <div class="card-body">
                                             <p class="m-0"><strong>Type Of Calamity: </strong><?php echo $activeCalamity['type_calamity_type']?></p>
-                                            <p class="m-0"><strong>Calamity Description: </strong><?php echo $activeCalamity['type_calamity_description']?></p>
+                                            <p class="m-0"><strong>Description: </strong><?php echo $activeCalamity['calamity_description']?></p>
+                                            <p class="m-0"><strong>Calamity Information: </strong><?php echo $activeCalamity['type_calamity_description']?></p>
                                             <p class="m-0"><strong>Level: </strong><?php echo $activeCalamity['status_level']?></p>
                                             <p class="m-0"><strong>Level Color: </strong><?php echo $activeCalamity['status_color']?></p>
                                             <p class="m-0"><strong>Level Description: </strong><?php echo $activeCalamity['status_description']?></p>
