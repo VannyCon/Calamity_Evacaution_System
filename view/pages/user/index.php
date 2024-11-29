@@ -11,7 +11,7 @@ $activeAnnouncement = $announcement->getActiveAnnouncement();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nursery Owners</title>
+    <title>Calamity Management System</title>
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -22,7 +22,8 @@ $activeAnnouncement = $announcement->getActiveAnnouncement();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../../css/sidebar.css">
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-    <style>
+    <link rel="icon" href="../../../assets/images/logo.png" type="image/x-icon" />
+   <style>
         #map { height: 500px; width: 98%; margin: 10px}
     </style>
 </head>

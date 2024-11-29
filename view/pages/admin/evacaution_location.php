@@ -1,6 +1,7 @@
 <?php
 
 $title = "admin";
+$part = "evacuation";
 require_once('../../../controller/EvacuationController.php');
 require_once('../../components/header.php');
 ?>

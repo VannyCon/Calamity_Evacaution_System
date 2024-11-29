@@ -17,17 +17,47 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../../css/sidebar.css">
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="icon" href="../../../assets/images/logo.png" type="image/x-icon" />
     <style>
         #map { height: 500px; width: 98%; margin: 10px}
         
     </style>
 </head>
-<body class="px-1 px-md-5">    
-<?php 
-    // Redirect to login if not logged in
-    if (isset($_SESSION['username']) && $title != "User") {
-        echo "          
-                <nav class='sidebar close'>
+<body class="px-1 px-md-5">
+    <style>
+
+/* Hide sidebar on mobile */
+@media (max-width: 767.98px) {
+    .sidebar {
+        display: none !important;
+        position: static !important;
+        width: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .home {
+        left: 0 !important;
+        width: 100% !important;
+        padding-top: 60px;
+        /* Space for mobile navbar */
+    }
+}
+
+/* Show sidebar on desktop */
+@media (min-width: 768px) {
+    .navbar {
+        display: none !important;
+    }
+}
+.mobile-nav-bg {
+    background-color: #8fd691;
+
+}
+
+    </style>    
+    <?php if (isset($_SESSION['username']) && $part != "User") {?>
+        <nav class='sidebar close'>
                         <header>
                             <div class='image-text'>
                                 <span class='image'>
@@ -47,21 +77,21 @@
                         <div class='menu-bar'>
                             <div class='menu'>
                                 <ul class='menu-links p-0'>
-                                    <li class='nav-link'>
+                                    <li class='nav-link  <?php echo $part == 'dashboard' ? 'active' : ''; ?>'>
                                         <a href='index.php'>
                                             <i class='bx bx-home-alt icon'></i>
                                             <span class='text nav-text'>Dashboard</span>
                                         </a>
                                     </li>
 
-                                    <li class='nav-link'>
+                                    <li class='nav-link <?php echo $part == 'calamity' ? 'active' : ''; ?>'>
                                         <a href='calamity.php'>
                                             <i class='bx bx-grid-alt icon'></i>
                                             <span class='text nav-text'>Calamity</span>
                                         </a>
                                     </li>
 
-                                    <li class='nav-link'>
+                                    <li class='nav-link <?php echo $part == 'map' ? 'active' : ''; ?>'>
                                         <a href='map.php'>
                                             <i class='bx bx-map-alt icon'></i>
                                             <span class='text nav-text'>Map</span>
@@ -70,34 +100,34 @@
 
 
 
-                                    <li class='nav-link'>
+                                    <li class='nav-link <?php echo $part == 'table' ? 'active' : ''; ?>'>
                                         <a href='table.php'>
                                             <i class='bx bx-table icon'></i>
                                             <span class='text nav-text'>Table</span>
                                         </a>
                                     </li>
 
-                                    <li class='nav-link'>
+                                    <li class='nav-link <?php echo $part == 'announcement' ? 'active' : ''; ?>'>
                                         <a href='annoucement.php'>
                                             <i class='bx bx-microphone icon'></i>
                                             <span class='text nav-text'>Annoucement</span>
                                         </a>
                                     </li>
 
-                                    <li class='nav-link'>
+                                    <li class='nav-link <?php echo $part == 'evacuation' ? 'active' : ''; ?>'>
                                         <a href='evacaution_location.php'>
                                             <i class='bx bx-map-pin icon'></i>
-                                            <span class='text nav-text'>Location</span>
+                                            <span class='text nav-text'>Evacaution Center</span>
                                         </a>
                                     </li>
 
-                                    <li class='nav-link'>
+                                    <li class='nav-link <?php echo $part == 'history' ? 'active' : ''; ?>'>
                                         <a href='history.php'>
                                             <i class='bx bx-history icon'></i>
                                             <span class='text nav-text'>History</span>
                                         </a>
                                     </li>
-                                      <li class='nav-link'>
+                                      <li class='nav-link <?php echo $part == 'report' ? 'active' : ''; ?>'>
                                         <a href='report.php'>
                                             <i class='bx bx-book-content  icon'></i>
                                             <span class='text nav-text'>Report</span>
@@ -119,8 +149,74 @@
                             </div>
                         </div>
                     </nav>
+
+
                     
-        ";
-    }
-?>
-   <section class="home mb-3 p-4">
+                <nav class='navbar navbar-expand-md d-md-none fixed-top mobile-nav-bg'>
+                    <div class='container-fluid'>
+                        <a class='navbar-brand' href='#'>
+                            <img src='../../../assets/images/logo.png' alt='' width='50' height='50'>
+                        </a>
+                        <button class='navbar-toggler' type='button' data-bs-toggle='collapse' data-bs-target='#mobileNav' 
+                                aria-controls='mobileNav' aria-expanded='false' aria-label='Toggle navigation'>
+                            <span class='navbar-toggler-icon'></span>
+                        </button>
+                        
+                        <div class='collapse navbar-collapse bg-light p-2 rounded' id='mobileNav'>
+                            <ul class='navbar-nav me-auto mb-2 mb-lg-0'>
+                                <li class='nav-item'>
+                                    <a class='nav-link <?php echo $part == 'dashboard' ? 'active' : ''; ?>' href='index.php'>
+                                        <i class='bx bx-home-alt'></i> Dashboard
+                                    </a>
+                                </li>
+                                <li class='nav-item'>
+                                    <a class='nav-link <?php echo $part == 'calamity' ? 'active' : ''; ?>' href='calamity.php'>
+                                        <i class='bx bx-grid-alt'></i> Calamity
+                                    </a>
+                                </li>
+                                <li class='nav-item'>
+                                    <a class='nav-link <?php echo $part == 'map' ? 'active' : ''; ?>' href='map.php'>
+                                        <i class='bx bx-map-alt'></i> Map
+                                    </a>
+                                </li>
+                                <li class='nav-item'>
+                                    <a class='nav-link <?php echo $part == 'table' ? 'active' : ''; ?>' href='table.php'>
+                                        <i class='bx bx-table'></i> Table
+                                    </a>
+                                </li>
+                                <li class='nav-item'>
+                                    <a class='nav-link <?php echo $part == 'announcement' ? 'active' : ''; ?>' href='annoucement.php'>
+                                        <i class='bx bx-microphone'></i> Announcement
+                                    </a>
+                                </li>
+                                <li class='nav-item'>
+                                    <a class='nav-link <?php echo $part == 'evacuation' ? 'active' : ''; ?>' href='evacaution_location.php'>
+                                        <i class='bx bx-map-pin'></i> Evacaution Center
+                                    </a>
+                                </li>
+                                <li class='nav-item'>
+                                    <a class='nav-link <?php echo $part == 'history' ? 'active' : ''; ?>' href='history.php'>
+                                        <i class='bx bx-history'></i> History
+                                    </a>
+                                </li>
+                                <li class='nav-item'>
+                                    <a class='nav-link <?php echo $part == 'report' ? 'active' : ''; ?>' href='report.php'>
+                                        <i class='bx bx-book-content'></i> Report
+                                    </a>
+                                </li>
+                                <li class='nav-item'>
+                                    <form action='' method='post'>
+                                        <input type='hidden' name='action' value='logout'>
+                                        <button type='submit' class='nav-link text-danger border-0 bg-transparent'>
+                                            <i class='bx bx-log-out'></i> Logout
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+    <?php }?>        
+                
+
+   <section class="home mb-3 p-1 p-lg-4 pt-5 pt-md-0 mt-5 mt-lg-0">

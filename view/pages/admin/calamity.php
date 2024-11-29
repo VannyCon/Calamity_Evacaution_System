@@ -1,5 +1,6 @@
 <?php 
-
+$title = "admin";
+$part = "calamity";
 require_once('../../../controller/CalamityController.php');
 
 $activeCalamities = $calamityService->getActiveCalamity();

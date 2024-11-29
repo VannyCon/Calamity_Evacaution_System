@@ -1,5 +1,6 @@
 <?php 
-
+$title = "admin";
+$part = "announcement";
 require_once('../../../controller/AnnouncementController.php');
 $activeAnnouncement = $announcementServices->getActiveAnnouncement();
 ?>

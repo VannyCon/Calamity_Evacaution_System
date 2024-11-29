@@ -345,3 +345,12 @@ body.dark .home .text {
 .btn-logout:hover .nav-text {
     color: white;
 }
+
+.nav-link.active a {
+    background-color: var(--primary-color);
+}
+
+.nav-link.active a .icon,
+.nav-link.active a .text {
+    color: var(--sidebar-color);
+}

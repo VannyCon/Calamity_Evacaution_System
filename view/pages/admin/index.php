@@ -1,6 +1,7 @@
 <?php
 
 $title = "admin";
+$part = "dashboard";
 require_once('../../../controller/DashboardController.php'); 
 
 $m = $dashboardService->getCalamityThisYear();

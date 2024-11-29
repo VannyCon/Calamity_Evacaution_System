@@ -1,5 +1,6 @@
 <?php 
-
+$title = "admin";
+$part = "table";
 require_once('../../../controller/EvacuationController.php');
 
 $evacautionStatus = $evacuationService->getEvacuationStatus();

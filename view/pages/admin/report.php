@@ -1,5 +1,6 @@
 <?php
-
+$title = "admin";
+$part = "report";
 $title = "admin";
 require_once('../../../controller/DashboardController.php'); 
 

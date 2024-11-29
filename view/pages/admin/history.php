@@ -1,5 +1,6 @@
 <?php 
-
+$title = "admin";
+$part = "history";
 require_once('../../../controller/CalamityController.php');
 
 $histories = $calamityService->getNotActiveCalamity();
