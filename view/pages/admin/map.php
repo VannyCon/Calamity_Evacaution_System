@@ -4,8 +4,38 @@ $part = "map";
 require_once('../../../controller/EvacuationController.php');
 require_once('../../components/header.php')?>
 
+<!-- Modal -->
+<div class="modal fade" id="resetModal" tabindex="-1" aria-labelledby="resetModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="resetModalLabel">Confirm Reset</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="" method="POST">
+                <div class="modal-body">
+                    <p><small>If you Reset all the Evacaution Center Occupied will reset and all the Evacuee will Reset also.</small></p>
+                    <p>Are you sure you want to reset?</p>
+                    <input type="hidden" name="action" value="resetEvactionData"> <!-- Example hidden input -->
+                    <input type="hidden" name="from" value="map"> <!-- Example hidden input -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Confirm Reset</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <div class="p-1 p-md-2">
-<h3 class="text-dark">Evacaution Status Map</h3>
+    <div class="d-flex justify-content-between p-0 p-md-2">
+        <h3 class="text-dark">Evacaution Status Map</h3>
+        <!-- Reset Button -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#resetModal">
+            Reset
+        </button>
+    </div>
     <div id="map"></div>
     <div class="m-3">
         <p class="mb-1"><img src="../../../assets/images/green.png" alt="" srcset="" width="20">Green 25% Full</p>

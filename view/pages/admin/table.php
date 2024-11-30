@@ -8,6 +8,31 @@ $evacautionStatus = $evacuationService->getEvacuationStatus();
 ?>
 <?php require_once('../../components/header.php')?>
 
+
+<!-- Modal -->
+<div class="modal fade" id="resetModal" tabindex="-1" aria-labelledby="resetModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="resetModalLabel">Confirm Reset</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="" method="POST">
+                <div class="modal-body">
+                    <p><small>If you Reset all the Evacaution Center Occupied will reset and all the Evacuee will Reset also.</small></p>
+                    <p>Are you sure you want to reset?</p>
+                    <input type="hidden" name="action" value="resetEvactionData"> <!-- Example hidden input -->
+                    <input type="hidden" name="from" value="table"> <!-- Example hidden input -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Confirm Reset</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <div class="p-2 p-md-5">
 
     <div class="p-0">
@@ -19,6 +44,13 @@ $evacautionStatus = $evacuationService->getEvacuationStatus();
         </div>
 
         <div class="table-responsive card p-3">
+            <div class="d-flex justify-content-between">
+                <h4 class="text-success">Evacuation Center</h4>
+                <!-- Reset Button -->
+                <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#resetModal">
+                    Reset
+                </button>
+            </div>
             <!-- Table for nursery owners -->
             <table border="1" class="table p-3" id="pestData">
                 <thead>

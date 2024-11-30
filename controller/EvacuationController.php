@@ -85,4 +85,18 @@ session_start();
         }
     }
     ////////////////// EVACUATION /////////////////////////
+
+
+        // THIS HANDLE THE UPDATE OF CURRENT AND MAX OF THE EVACUATION
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['action'] == 'resetEvactionData') {
+            $status = $evacuationService->resetEvacuationData();
+            if ($status == true) {
+                if($_POST['from'] == 'table'){
+                    header("Location: table.php");
+                }else if($_POST['from'] == 'map'){
+                    header("Location: map.php");
+                }
+            }
+
+        }
 ?>

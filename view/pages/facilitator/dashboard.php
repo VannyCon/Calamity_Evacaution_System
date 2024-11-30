@@ -95,7 +95,7 @@ $evacautionStatus = $facilitator->getEvacuationStatus();
                                 <td><?php echo htmlspecialchars($evacaution['location_current_no_of_evacuue'].'/'.$evacaution['location_max_accommodate']); ?></td>
                                 <td>
                                 <?php if ($evacaution['location_current_no_of_evacuue'] == $evacaution['location_max_accommodate']) { ?>
-                                    <p class="text-dark">Full</p>
+                                    <span class="text-dark mx-0 mx-md-2 my-1 my-md-0">Full</span>
                                 <?php } else { ?>
                                     
                                      <!-- Button to trigger modal -->
@@ -103,12 +103,14 @@ $evacautionStatus = $facilitator->getEvacuationStatus();
                                         data-bs-toggle="modal" 
                                         data-bs-target="#updateModal"
                                         data-bs-id="<?php echo htmlspecialchars($evacaution['id']); ?>"
+                                        data-bs-locid="<?php echo htmlspecialchars($evacaution['location_id']); ?>"
                                         data-bs-brgy="<?php echo htmlspecialchars($evacaution['location_name']); ?>"
                                         data-bs-current="<?php echo htmlspecialchars($evacaution['location_current_no_of_evacuue']); ?>"
                                         data-bs-max="<?php echo htmlspecialchars($evacaution['location_max_accommodate']); ?>">
                                         Encode
                                     </button>
                                 <?php } ?>
+                                <a href="evacuaeinfo.php?locID=<?php echo htmlspecialchars($evacaution['location_id']); ?>&locName=<?php echo htmlspecialchars($evacaution['location_name']); ?>&locDesciption=<?php echo htmlspecialchars($evacaution['location_description']); ?>" class="btn btn-success">View Evacuees</a>
                             </td>
 
                             </tr>
@@ -138,9 +140,10 @@ $evacautionStatus = $facilitator->getEvacuationStatus();
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="" method="POST">
+            
                 <div class="modal-body">
                     <input type="hidden" id="statusID" name="id">
-
+                    <input type="hidden" id="evacuationID" name="evacuation_locid" >
                     <p class="text-dark">
                        <strong>Occupied:</strong> 
                         <span id="status"></span>
@@ -198,6 +201,7 @@ $evacautionStatus = $facilitator->getEvacuationStatus();
         $('#updateModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget); // Button that triggered the modal
             var id = button.data('bs-id'); // Extract info from data-* attributes
+            var locID = button.data('bs-locid');
             var brgy = button.data('bs-brgy');
             var current = button.data('bs-current');
             var max = button.data('bs-max');
@@ -205,6 +209,7 @@ $evacautionStatus = $facilitator->getEvacuationStatus();
             // Update the modal's content.
             var modal = $(this);
             modal.find('.modal-body #statusID').val(id);
+            modal.find('.modal-body #evacuationID').val(locID);
             modal.find('#brgy').text(brgy);
             modal.find('.modal-body #status').text(current+ "/"+max); // Update the span with current value
 

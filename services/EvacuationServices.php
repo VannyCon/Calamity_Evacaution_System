@@ -96,6 +96,23 @@ class EvacuationServices extends config {
         
     }
 
+        // THIS FUNCTION RESET THE EVACUATION DATA (CURRENT) AND ALL Evacuees INFO TO 0
+        public function resetEvacuationData() {
+            try {
+                $query = "UPDATE `tbl_evacuation_location` SET `location_current_no_of_evacuue`=0 WHERE 1";
+                $stmt = $this->pdo->prepare($query); // Prepare the query
+                $stmt->execute(); // Execute the query
+                $query1 = "UPDATE `tbl_evacuees_info` SET `isActive`=0 WHERE 1";
+                $stmt2 = $this->pdo->prepare($query1); // Prepare the query
+                $stmt2->execute(); // Execute the query
+                return true;// Outputs locations as JSON
+            } catch (PDOException $e) {
+                error_log('Database Error: ' . $e->getMessage()); // Log the error.
+                return false;
+            }
+            
+        }
+
     // THIS FUNCTION HANDLE TO UPDATE THE EVACUATIN
     public function updateLocation($locID, $location_name, $location_description,  $location_latitude, $location_longhitude) {
         try {

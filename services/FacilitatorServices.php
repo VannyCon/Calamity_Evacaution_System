@@ -51,15 +51,16 @@ class FacilitatorServices extends config {
     }
     
     
-    public function addEvacuae($id, $fullname, $address, $age, $birthdate, $sex, $isPwd) {
+    public function addEvacuae($id, $evacuation_locid, $fullname, $address, $age, $birthdate, $sex, $isPwd) {
         try {
             // Begin transaction
             $this->pdo->beginTransaction();
     
             // First query: Insert evacuee info
-            $query = "INSERT INTO `tbl_evacuees_info` (`fullname`, `address`, `age`, `birthdate`, `sex`, `isPwd`) 
-                      VALUES (:fullname, :address, :age, :birthdate, :sex, :isPwd)";
+            $query = "INSERT INTO `tbl_evacuees_info` (`evacuation_locid`, `fullname`, `address`, `age`, `birthdate`, `sex`, `isPwd`,`isActive`, `created_date`) 
+                      VALUES (:evacuation_locid, :fullname, :address, :age, :birthdate, :sex, :isPwd, 1, NOW())";
             $stmt = $this->pdo->prepare($query); // Prepare the query
+            $stmt->bindParam(':evacuation_locid', $evacuation_locid);
             $stmt->bindParam(':fullname', $fullname);
             $stmt->bindParam(':address', $address);
             $stmt->bindParam(':age', $age);
@@ -88,5 +89,20 @@ class FacilitatorServices extends config {
         }
     }
     
+
+    // THIS FUNCTION HANDLE THE READ ALL THE EVACUATION STATUS WHICH SUPPLY TO TABLE
+    public function getEvacueByLocID($locID) {
+        try {
+            $query = "SELECT `id`, `evacuation_locid`, `fullname`, `address`, `age`, `birthdate`, `sex`, `isPwd`, `isActive`, `created_date` FROM `tbl_evacuees_info` WHERE `evacuation_locid`=:locID &&  `isActive` = 1";
+            $stmt = $this->pdo->prepare($query); // Prepare the query
+            $stmt->bindParam(':locID', $locID);
+            $stmt->execute(); // Execute the query
+            $calamities =  $stmt->fetchAll(PDO::FETCH_ASSOC); // Fetch the result
+        
+            return $calamities;// Outputs locations as JSON
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    }
 }
 ?>

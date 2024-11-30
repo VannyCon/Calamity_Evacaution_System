@@ -44,8 +44,10 @@
     
     // this is the part will pass the Log out which from config() located
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['action'] == 'encodeEvacuees') {
+        
          // Santize the username and password to avoid scripting
          $id = $facilitator->clean('id', 'post');
+         $evacuation_locid = $facilitator->clean('evacuation_locid', 'post');
          $fullname = $facilitator->clean('fullname', 'post');
          $address = $facilitator->clean('address', 'post');
          $age = $facilitator->clean('age', 'post');
@@ -53,7 +55,7 @@
          $sex = $facilitator->clean('sex', 'post');
          $isPwd = $facilitator->clean('isPwd', 'post');
 
-         $status = $facilitator->addEvacuae($id, $fullname, $address, $age, $birthdate, $sex, $isPwd);
+         $status = $facilitator->addEvacuae($id, $evacuation_locid, $fullname, $address, $age, $birthdate, $sex, $isPwd);
 
         if($status == true){
             header("Location: dashboard.php");

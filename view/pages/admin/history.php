@@ -59,10 +59,13 @@ $histories = $calamityService->getNotActiveCalamity();
                     <?php if (!empty($histories)): ?>
                         <?php foreach ($histories  as $history): ?>
                             <!-- table row highlight base on the current and max of the specific evacuation -->
-                            
-                            <tr>
+                            <?php 
+                                $date = new DateTime($history['calamity_date']);
+                                $datenow = new DateTime('now'); 
+                            ?>
+                            <tr class="<?php echo ($date->format('F j, Y') != $datenow->format('F j, Y')) ? 'table-secondary' : ''; ?>">
+
                                 <td><?php
-                                    $date = new DateTime($history['calamity_date']);
                                     echo $date->format('F j, Y')?>
                                 </td>
                                 <td><?php
@@ -74,7 +77,7 @@ $histories = $calamityService->getNotActiveCalamity();
                                 <td><?php echo htmlspecialchars($history['status_color']); ?></td>
                                 <td>
                                     <?php 
-                                    $datenow = new DateTime('now'); 
+                                    
                                     // Compare formatted dates as strings
                                     if ($date->format('F j, Y') == $datenow->format('F j, Y')) {
                                     ?>
