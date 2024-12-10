@@ -3,6 +3,9 @@
 $title = "admin";
 $part = "evacuation";
 require_once('../../../controller/EvacuationController.php');
+require_once('../../../controller/FacilitatorController.php');
+//Get here
+$activeFacilitator = $facilitatorServices->getAllFacilitator();
 require_once('../../components/header.php');
 ?>
 
@@ -60,6 +63,17 @@ require_once('../../components/header.php');
                         <div class="form-group">
                             <label for="max">Max</label>
                             <input type="number" class="form-control" id="max" name="max" required min="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="facilitator">Facilitator</label>
+                            <select class='form-select' id='facilitator' name='facilitator_id' aria-label='Facilitator' required>
+                                <option value="" selected disabled>Choose a Facilitator</option>
+                                <?php foreach ($activeFacilitator as $facilitator): ?>
+                                    <option value="<?= htmlspecialchars($facilitator['id']) ?>">
+                                        <?= htmlspecialchars($facilitator['facilitator_fullname']) ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
             </div>
 
@@ -162,6 +176,10 @@ require_once('../../components/header.php');
                     var locDescription = location.location_description;
                     var current = parseInt(location.location_current_no_of_evacuue);
                     var max = parseInt(location.location_max_accommodate);  // Fixed typo
+                    var facilitator_id = location.facilitator_id;
+                    var facilitator_fullname = location.facilitator_fullname;
+                    var facilitator_contact_number = location.facilitator_contact_number;
+
 
                     // Calculate the percentage of the current number of evacuees relative to the max capacity
                     var percentage = (current / max) * 100;
@@ -176,9 +194,11 @@ require_once('../../components/header.php');
                         .bindPopup(`<div>
                             <strong>Location:</strong> ${locName} <br>
                             <strong>Description:</strong> ${locDescription} <br>
-                            <strong>Current Evacuees:</strong> ${current}/${max} <br><br>
+                            <strong>Current Evacuees:</strong> ${current}/${max} <br>
+                            <strong>Facilitator Name:</strong> ${facilitator_fullname} <br>
+                            <strong>Contact Number:</strong> ${facilitator_contact_number} <br><br>
                             <div class="d-flex">
-                                <a href='update_map.php?locID=${locID}&locName=${locName}&description=${locDescription}' class='btn btn-info w-100 text-white'>Change</a>
+                                <a href='update_map.php?locID=${locID}&locName=${locName}&description=${locDescription}&facilitator_id=${facilitator_id}' class='btn btn-info w-100 text-white'>Change</a>
                                 <button type="button" class="btn btn-danger w-100  mx-2 " 
                                         data-bs-toggle="modal" 
                                         data-bs-target="#deleteEvacuationModal"

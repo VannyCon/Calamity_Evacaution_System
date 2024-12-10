@@ -113,7 +113,12 @@
                                             <span class='text nav-text'>Annoucement</span>
                                         </a>
                                     </li>
-
+                                    <li class='nav-link <?php echo $part == 'facilitator' ? 'active' : ''; ?>'>
+                                        <a href='facilitator.php'>
+                                            <i class='bx bx-user-check icon'></i>
+                                            <span class='text nav-text'>Facilitator</span>
+                                        </a>
+                                    </li>
                                     <li class='nav-link <?php echo $part == 'evacuation' ? 'active' : ''; ?>'>
                                         <a href='evacaution_location.php'>
                                             <i class='bx bx-map-pin icon'></i>

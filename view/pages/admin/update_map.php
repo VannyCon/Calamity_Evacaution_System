@@ -4,10 +4,14 @@ if (isset($_GET['locID'])) {
     $locID = $_GET['locID'];
     $locName = $_GET['locName'];
     $description = $_GET['description'];
+    $facilitator_id = $_GET['facilitator_id'];
 } else {
     header("Location: map.php");
     exit();
 }
+require_once('../../../controller/FacilitatorController.php');
+//Get here
+$activeFacilitator = $facilitatorServices->getAllFacilitator();
 require_once('../../../controller/EvacuationController.php');
 
 require_once('../../components/header.php');
@@ -50,6 +54,21 @@ require_once('../../components/header.php');
                             <label for="description">Description</label>
                             <input type="text" class="form-control" value="<?php echo $description?>" id="description" name="description" required>
                         </div>
+
+                        <div class="form-group">
+                            <label for="facilitator">Facilitator</label>
+                            <select class='form-select' id='facilitator' name='facilitator_id' aria-label='Facilitator' required>
+                                <option value="" disabled <?= empty($facilitator_id) ? 'selected' : '' ?>>Choose a Facilitator</option>
+                                <?php foreach ($activeFacilitator as $facilitator): ?>
+                                    <option value="<?= htmlspecialchars($facilitator['id']) ?>" 
+                                        <?= $facilitator['id'] == $facilitator_id ? 'selected' : '' ?>>
+                                        <?= htmlspecialchars($facilitator['facilitator_fullname']) ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+
+
             </div>
             
             <div class="modal-footer">

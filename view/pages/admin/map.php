@@ -38,9 +38,9 @@ require_once('../../components/header.php')?>
     </div>
     <div id="map"></div>
     <div class="m-3">
-        <p class="mb-1"><img src="../../../assets/images/green.png" alt="" srcset="" width="20">Green 25% Full</p>
-        <p class="mb-1"><img src="../../../assets/images/blue.png" alt="" srcset="" width="20">Blue 50% Full</p>
-        <p class="mb-1"><img src="../../../assets/images/yellow.png" alt="" srcset="" width="20">Yellow 75% Full</p>
+        <p class="mb-1"><img src="../../../assets/images/green.png" alt="" srcset="" width="20">Green 0 - 25% Occupied</p>
+        <p class="mb-1"><img src="../../../assets/images/blue.png" alt="" srcset="" width="20">Blue 26 - 50% Occupied</p>
+        <p class="mb-1"><img src="../../../assets/images/yellow.png" alt="" srcset="" width="20">Yellow 51 - 75% Occupied</p>
         <p class="mb-1"><img src="../../../assets/images/red.png" alt="" srcset="" width="20">Red 100%</p>
     </div>
 
@@ -147,6 +147,8 @@ require_once('../../components/header.php')?>
                     var locDescription = location.location_description;
                     var current = parseInt(location.location_current_no_of_evacuue);
                     var max = parseInt(location.location_max_accommodate);  // Fixed typo
+                    var facilitator_fullname = location.facilitator_fullname;
+                    var facilitator_contact_number = location.facilitator_contact_number;
 
                     // Calculate the percentage of the current number of evacuees relative to the max capacity
                     var percentage = (current / max) * 100;
@@ -169,7 +171,9 @@ require_once('../../components/header.php')?>
                         .bindPopup(`<div>
                             <strong>Location:</strong> ${locName} <br>
                             <strong>Description:</strong> ${locDescription} <br>
-                            <strong>Current Evacuees:</strong> ${current}/${max} <br><br>
+                            <strong>Current Evacuees:</strong> ${current}/${max} <br>
+                            <strong>Facilitator Name:</strong> ${facilitator_fullname} <br>
+                            <strong>Contact Number:</strong> ${facilitator_contact_number} <br><br>
                             <button type="button" class="btn btn-info w-100" 
                                 data-bs-toggle="modal" 
                                 data-bs-target="#updateModal"

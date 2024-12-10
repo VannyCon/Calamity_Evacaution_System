@@ -1,5 +1,5 @@
 <?php 
-session_start();
+include_once('../../../controller/FacilitatorController.php');
 // check if the admin is already log in then it will go to index.php
 if (!isset($_SESSION['facilitator'])) {
     header("Location: index.php");
@@ -15,9 +15,9 @@ $locName = $_GET['locName'];
 $locDesciption = $_GET['locDesciption'];
 
 
-include_once('../../../controller/FacilitatorController.php');
 
-$evacueDatas = $facilitator->getEvacueByLocID($locID);
+
+$evacueDatas = $facilitatorServices->getEvacueByLocID($locID);
 
 ?>
 <!DOCTYPE html>
@@ -25,7 +25,7 @@ $evacueDatas = $facilitator->getEvacueByLocID($locID);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nursery Owners</title>
+    <title>Calamity Management System</title>
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -36,6 +36,7 @@ $evacueDatas = $facilitator->getEvacueByLocID($locID);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../../css/sidebar.css">
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="icon" href="../../../assets/images/logo.png" type="image/x-icon" />
     <style>
  
     </style>
@@ -79,6 +80,7 @@ $evacueDatas = $facilitator->getEvacueByLocID($locID);
                         <th>Age</th>
                         <th>Gender</th>
                         <th>isPwd</th>
+                        <th>Senior</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -91,6 +93,7 @@ $evacueDatas = $facilitator->getEvacueByLocID($locID);
                                 <td><?php echo htmlspecialchars($evacueData['age']); ?></td>
                                 <td><?php echo htmlspecialchars($evacueData['sex']); ?></td>
                                 <td><?php echo ($evacueData['isPwd'] == 1) ? "Yes" : "No"; ?></td>
+                                <td><?php echo ($evacueData['isSenior'] == 1) ? "Yes" : "No"; ?></td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>

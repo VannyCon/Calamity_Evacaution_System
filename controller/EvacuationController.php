@@ -67,8 +67,9 @@ session_start();
 
         // HANDLE UPDATE OF EVACUATION
         if ($_POST['action'] == 'updateLocation') {
+            $facilitator_id = $_POST['facilitator_id'];
             $locID = $_POST['locID'];
-            $status = $evacuationService->updateLocation($locID, $location_name, $description, $location_latitude, $location_longhitude);
+            $status = $evacuationService->updateLocation($locID, $location_name, $description, $location_latitude, $location_longhitude, $facilitator_id);
             if ($status == true) {
                 header("Location: evacaution_location.php");
                 exit();
@@ -77,7 +78,10 @@ session_start();
         }else if($_POST['action'] == 'createEvacuationLocation'){
             $current = $_POST['current'];
             $max = $_POST['max'];
-            $status = $evacuationService->createEvacuationLocation($location_name, $description,  $location_latitude, $location_longhitude, $current, $max);
+            $facilitator_id = $_POST['facilitator_id'];
+
+
+            $status = $evacuationService->createEvacuationLocation($location_name, $description,  $location_latitude, $location_longhitude, $current, $max, $facilitator_id);
             if ($status == true) {
                 header("Location: evacaution_location.php");
                 exit();

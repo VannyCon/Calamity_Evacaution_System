@@ -1,13 +1,16 @@
 <?php 
-session_start();
+   include_once('../../../controller/FacilitatorController.php');
 // check if the admin is already log in then it will go to index.php
 if (!isset($_SESSION['facilitator'])) {
     header("Location: index.php");
     exit();
 }
-   include_once('../../../controller/FacilitatorController.php');
 
-$evacautionStatus = $facilitator->getEvacuationStatus();
+
+if(isset($_SESSION['facilitator_id'])){
+    $id = $_SESSION['facilitator_id'];
+    $evacautionStatus = $facilitatorServices->getEvacuationStatus($id);
+}
 
 ?>
 <!DOCTYPE html>
@@ -15,7 +18,7 @@ $evacautionStatus = $facilitator->getEvacuationStatus();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nursery Owners</title>
+    <title>Calamity Management System</title>
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -26,6 +29,7 @@ $evacautionStatus = $facilitator->getEvacuationStatus();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../../css/sidebar.css">
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="icon" href="../../../assets/images/logo.png" type="image/x-icon" />
     <style>
  
     </style>
@@ -47,13 +51,6 @@ $evacautionStatus = $facilitator->getEvacuationStatus();
                 </form>
             </div>
         </div>
-
-        
-        <!-- Search Input -->
-        <div class="mb-3">
-            <input type="text" id="searchInput" class="form-control" placeholder="Search for pest...">
-        </div>
-
         <div class="table-responsive card p-3">
             <!-- Table for nursery owners -->
             <table border="1" class="table p-3" id="pestData">
@@ -174,12 +171,29 @@ $evacautionStatus = $facilitator->getEvacuationStatus();
                             <option value="Other">Other</option>
                         </select>
                     </div>
-                    <div class="form-group mt-4">
+                    <div class="form-check mt-4">
+                        <input class="form-check-input" type="checkbox" name="isPwd" id="isPwd" value="1">
+                        <input type="hidden" name="isPwdHidden" value="0">
+                        <label class="form-check-label" for="isPwd">
+                            Is PWD?
+                        </label>
+                    </div>
+                    <div class="form-check mt-4">
+                        <input class="form-check-input" type="checkbox" name="isSenior" id="isSenior" value="1">
+                        <input type="hidden" name="isSeniorHidden" value="0">
+                        <label class="form-check-label" for="isSenior">
+                            Senior Citizen?
+                        </label>
+                    </div>
+
+
+
+                    <!-- <div class="form-group mt-4">
                         <div class="form-check form-switch">
                             <label class="form-check-label" for="isPwd">Is PWD?</label>
                             <input type="checkbox" class="form-check-input py-2 px-2" id="isPwd" name="isPwd" value="1">
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <input type="hidden" name="action" value="encodeEvacuees">
                 <div class="modal-footer">
@@ -213,6 +227,30 @@ $evacautionStatus = $facilitator->getEvacuationStatus();
             modal.find('#brgy').text(brgy);
             modal.find('.modal-body #status').text(current+ "/"+max); // Update the span with current value
 
+        });
+
+            // Target the form within the modal by its ID
+        const modalForm = document.querySelector('#updateModal form');
+        
+        // Add a submit event listener
+        modalForm.addEventListener('submit', function (event) {
+            // Prevent the default form submission
+            event.preventDefault();
+
+            // Grab the checkboxes
+            const isPwdCheckbox = document.getElementById('isPwd');
+            const isSeniorCheckbox = document.getElementById('isSenior');
+
+            // Log their statuses (for testing/debugging purposes)
+            console.log('Is PWD Checked:', isPwdCheckbox.checked ? 1 : 0);
+            console.log('Is Senior Checked:', isSeniorCheckbox.checked ? 1 : 0);
+
+            // Update the hidden input fields
+            document.querySelector('input[name="isPwd"]').value = isPwdCheckbox.checked ? 1 : 0;
+            document.querySelector('input[name="isSenior"]').value = isSeniorCheckbox.checked ? 1 : 0;
+
+            // Submit the form programmatically after setting the hidden inputs
+            modalForm.submit();
         });
 
 
@@ -252,6 +290,7 @@ $evacautionStatus = $facilitator->getEvacuationStatus();
             }
         });
     });
+
 </script>
 
 

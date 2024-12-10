@@ -56,12 +56,12 @@ class EvacuationServices extends config {
     }
 
     // THIS FUNCTION CREATE A EVACAUTION LOCATION
-    public function createEvacuationLocation($location_name, $location_description, $location_latitude, $location_longhitude, $location_current_no_of_evacuue, $location_max_accommodate) {
+    public function createEvacuationLocation($location_name, $location_description, $location_latitude, $location_longhitude, $location_current_no_of_evacuue, $location_max_accommodate, $facilitator_id) {
         try {
 
             $locID = $this->generateLocID();
-            $query = "INSERT INTO `tbl_evacuation_location`(`location_id`, `location_name`, `location_description`, `location_latitude`, `location_longhitude`, `location_current_no_of_evacuue`, `location_max_accommodate`) 
-            VALUES (:locID, :location_name, :location_description, :location_latitude, :location_longhitude, :location_current_no_of_evacuue, :location_max_accommodate)";
+            $query = "INSERT INTO `tbl_evacuation_location`(`location_id`, `location_name`, `location_description`, `location_latitude`, `location_longhitude`, `location_current_no_of_evacuue`, `location_max_accommodate`, `facilitator_id`) 
+            VALUES (:locID, :location_name, :location_description, :location_latitude, :location_longhitude, :location_current_no_of_evacuue, :location_max_accommodate, :facilitator_id)";
 
             $stmt = $this->pdo->prepare($query); // Prepare the query
             $stmt->bindParam(':locID', $locID );
@@ -71,6 +71,7 @@ class EvacuationServices extends config {
             $stmt->bindParam(':location_longhitude', $location_longhitude);
             $stmt->bindParam(':location_current_no_of_evacuue', $location_current_no_of_evacuue);
             $stmt->bindParam(':location_max_accommodate', $location_max_accommodate);
+            $stmt->bindParam(':facilitator_id', $facilitator_id);
             $stmt->execute(); // Execute the query
             return true;// Outputs locations as JSON
         } catch (PDOException $e) {
@@ -114,15 +115,16 @@ class EvacuationServices extends config {
         }
 
     // THIS FUNCTION HANDLE TO UPDATE THE EVACUATIN
-    public function updateLocation($locID, $location_name, $location_description,  $location_latitude, $location_longhitude) {
+    public function updateLocation($locID, $location_name, $location_description,  $location_latitude, $location_longhitude, $facilitator_id) {
         try {
-            $query = "UPDATE `tbl_evacuation_location` SET `location_name`=:location_name, `location_description`=:location_description, `location_latitude`=:location_latitude,`location_longhitude`=:location_longhitude WHERE location_id=:locID";
+            $query = "UPDATE `tbl_evacuation_location` SET `location_name`=:location_name, `location_description`=:location_description, `location_latitude`=:location_latitude,`location_longhitude`=:location_longhitude, `facilitator_id`=:facilitator_id WHERE location_id=:locID";
             $stmt = $this->pdo->prepare($query); // Prepare the query
             $stmt->bindParam(':locID', $locID);
             $stmt->bindParam(':location_name', $location_name);
             $stmt->bindParam(':location_description', $location_description);
             $stmt->bindParam(':location_latitude', $location_latitude);
             $stmt->bindParam(':location_longhitude', $location_longhitude);
+            $stmt->bindParam(':facilitator_id', $facilitator_id);
             $stmt->execute(); // Execute the query
             return true;// Outputs locations as JSON
         } catch (PDOException $e) {

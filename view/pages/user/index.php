@@ -40,9 +40,9 @@ $activeAnnouncement = $announcement->getActiveAnnouncement();
                     </div>
                     <div class="card-body">
                         <div class="m-2">
-                            <p class="mb-1"><img src="../../../assets/images/green.png" alt="" width="20">Green 25% Full</p>
-                            <p class="mb-1"><img src="../../../assets/images/blue.png" alt="" width="20">Blue 50% Full</p>
-                            <p class="mb-1"><img src="../../../assets/images/yellow.png" alt="" width="20">Yellow 75% Full</p>
+                            <p class="mb-1"><img src="../../../assets/images/green.png" alt="" width="20">Green 0 - 25% Occupied</p>
+                            <p class="mb-1"><img src="../../../assets/images/blue.png" alt="" width="20">Blue 26 - 50% Occupied</p>
+                            <p class="mb-1"><img src="../../../assets/images/yellow.png" alt="" width="20">Yellow 51 - 75% Occupied</p>
                             <p class="mb-1"><img src="../../../assets/images/red.png" alt="" width="20">Red 100%</p>
                             <p class="mb-1"><img src="../../../assets/images/mylocation.png" alt="" width="20">Your Location</p>
                         </div>
@@ -174,6 +174,8 @@ async function loadEvacuationCenters() {
             const percentage = (location.location_current_no_of_evacuue / location.location_max_accommodate) * 100;
             const current = parseFloat(location.location_current_no_of_evacuue);
             const max = parseFloat(location.location_max_accommodate);
+            const facilitator_fullname = location.facilitator_fullname;
+            const facilitator_contact_number = location.facilitator_contact_number;
 
             const icon = percentage <= 50 ? greenIcon :
                          percentage <= 75 ? blueIcon :
@@ -181,7 +183,12 @@ async function loadEvacuationCenters() {
                          redIcon;
 
             const marker = L.marker([lat, lng], { icon }).addTo(map)
-                .bindPopup(`<strong>${location.location_name}</strong><br><strong>${location.location_description}</strong><br>Evacuees: ${location.location_current_no_of_evacuue}/${location.location_max_accommodate}`);
+                .bindPopup(`
+                <strong>${location.location_name}</strong><br>
+                <strong>${location.location_description}</strong><br>
+                <p>Facilitator Name: <strong>${location.facilitator_fullname}</strong></p>
+                <p>Contact Number:<strong>${location.facilitator_contact_number}</strong></p>
+                Evacuees: ${location.location_current_no_of_evacuue}/${location.location_max_accommodate}`);
 
             return { lat, lng, name: location.location_name, icon, percentage, current, max, marker };
         });
