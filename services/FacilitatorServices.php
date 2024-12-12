@@ -45,6 +45,23 @@ class FacilitatorServices extends config {
             echo "Error: " . $e->getMessage();
         }
     }
+
+    public function getSpecificFacilitator($id) {
+        try {
+            $query = "SELECT `id`, `facilitator_username`, `facilitator_password`, `facilitator_fullname`, `facilitator_contact_number` FROM `tbl_facilitator_access` 
+                      WHERE `id` = :id";
+                      
+            $stmt = $this->pdo->prepare($query); // Prepare the query
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT); // Bind the :id parameter to the $id variable
+            $stmt->execute(); // Execute the query
+            
+            $calamities = $stmt->fetch(PDO::FETCH_ASSOC); // Fetch the result
+            
+            return $calamities; // Outputs locations as JSON
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    }
     
 
     // Remove specific session variables so it will redirect the user to login
@@ -116,7 +133,25 @@ class FacilitatorServices extends config {
         // GET ALLL THE ACTIVE ANNONCMENT WHICH SHOW IN USER AREA
         public function getAllFacilitator() {
             try {
-                $query = "SELECT `id`, `facilitator_username`, `facilitator_password`, `facilitator_fullname`, `facilitator_contact_number` FROM `tbl_facilitator_access` WHERE 1";
+                $query = "SELECT 
+                            el.id,
+                            el.location_id,
+                            el.location_name,
+                            el.location_description,
+                            el.facilitator_id,
+                            fa.facilitator_username,
+                            fa.facilitator_password,
+                            fa.facilitator_fullname,
+                            fa.facilitator_contact_number
+                        FROM 
+                            tbl_evacuation_location AS el
+                        JOIN 
+                            tbl_facilitator_access AS fa
+                        ON 
+                            el.facilitator_id = fa.id
+                        WHERE 
+                            1;
+                        ";
                 $stmt = $this->pdo->prepare($query); // Prepare the query
                 $stmt->execute(); // Execute the query
                 $announcement =  $stmt->fetchAll(PDO::FETCH_ASSOC); // Fetch the result

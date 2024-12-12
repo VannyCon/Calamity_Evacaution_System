@@ -40,9 +40,9 @@ $activeAnnouncement = $announcement->getActiveAnnouncement();
                     </div>
                     <div class="card-body">
                         <div class="m-2">
-                            <p class="mb-1"><img src="../../../assets/images/green.png" alt="" width="20">Green 0 - 25% Occupied</p>
-                            <p class="mb-1"><img src="../../../assets/images/blue.png" alt="" width="20">Blue 26 - 50% Occupied</p>
-                            <p class="mb-1"><img src="../../../assets/images/yellow.png" alt="" width="20">Yellow 51 - 75% Occupied</p>
+                            <p class="mb-1"><img src="../../../assets/images/green.png" alt="" width="20">Green 25% Occupied</p>
+                            <p class="mb-1"><img src="../../../assets/images/blue.png" alt="" width="20">Blue 50% Occupied</p>
+                            <p class="mb-1"><img src="../../../assets/images/yellow.png" alt="" width="20">Yellow 75% Occupied</p>
                             <p class="mb-1"><img src="../../../assets/images/red.png" alt="" width="20">Red 100%</p>
                             <p class="mb-1"><img src="../../../assets/images/mylocation.png" alt="" width="20">Your Location</p>
                         </div>

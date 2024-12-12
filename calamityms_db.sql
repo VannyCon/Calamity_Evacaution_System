@@ -392,7 +392,7 @@ CREATE TABLE `view_total` (
 --
 DROP TABLE IF EXISTS `calamities_this_year`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `calamities_this_year`  AS SELECT `c`.`id` AS `id`, `c`.`calamity_active` AS `calamity_active`, `c`.`calamity_date` AS `calamity_date`, `c`.`calamity_time` AS `calamity_time`, `c`.`calamity_description` AS `calamity_description`, `cs`.`status_id` AS `status_id`, `cs`.`status_level` AS `status_level`, `cs`.`status_color` AS `status_color`, `cs`.`status_description` AS `status_description`, `tc`.`type_calamity_id` AS `type_calamity_id`, `tc`.`type_calamity_type` AS `type_calamity_type`, `tc`.`type_calamity_description` AS `type_calamity_description` FROM ((`tbl_calamity` `c` join `tbl_calamity_status` `cs` on(`c`.`calamity_status_id` = `cs`.`status_id`)) join `tbl_type_of_calamity` `tc` on(`c`.`calamity_type_id` = `tc`.`type_calamity_id`)) WHERE `c`.`calamity_active` = 0 AND year(`c`.`calamity_date`) = year(curdate()) ORDER BY `c`.`calamity_date` DESC ;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `calamities_this_year`  AS SELECT `c`.`id` AS `id`, `c`.`calamity_active` AS `calamity_active`, `c`.`calamity_date` AS `calamity_date`, `c`.`calamity_time` AS `calamity_time`, `c`.`calamity_description` AS `calamity_description`, `cs`.`status_id` AS `status_id`, `cs`.`status_level` AS `status_level`, `cs`.`status_color` AS `status_color`, `cs`.`status_description` AS `status_description`, `tc`.`type_calamity_id` AS `type_calamity_id`, `tc`.`type_calamity_type` AS `type_calamity_type`, `tc`.`type_calamity_description` AS `type_calamity_description` FROM ((`tbl_calamity` `c` join `tbl_calamity_status` `cs` on(`c`.`calamity_status_id` = `cs`.`status_id`)) join `tbl_type_of_calamity` `tc` on(`c`.`calamity_type_id` = `tc`.`type_calamity_id`)) WHERE `c`.`calamity_active` = 0 AND year(`c`.`calamity_date`) = year(curdate()) ORDER BY `c`.`calamity_date` DESC ;
 
 -- --------------------------------------------------------
 
@@ -401,7 +401,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `view_monthly_calamity_counts`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_monthly_calamity_counts`  AS SELECT monthname(`tbl_calamity`.`calamity_date`) AS `month_name`, count(0) AS `calamity_count` FROM `tbl_calamity` GROUP BY month(`tbl_calamity`.`calamity_date`) ORDER BY month(`tbl_calamity`.`calamity_date`) ASC ;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `view_monthly_calamity_counts`  AS SELECT monthname(`tbl_calamity`.`calamity_date`) AS `month_name`, count(0) AS `calamity_count` FROM `tbl_calamity` GROUP BY month(`tbl_calamity`.`calamity_date`) ORDER BY month(`tbl_calamity`.`calamity_date`) ASC ;
 
 -- --------------------------------------------------------
 
@@ -410,7 +410,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `view_top_calamity_type`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_top_calamity_type`  AS SELECT `tc`.`type_calamity_type` AS `calamity_type`, count(`c`.`id`) AS `calamity_count` FROM (`tbl_calamity` `c` join `tbl_type_of_calamity` `tc` on(`c`.`calamity_type_id` = `tc`.`type_calamity_id`)) WHERE year(`c`.`calamity_date`) = year(curdate()) GROUP BY `tc`.`type_calamity_type` ORDER BY count(`c`.`id`) DESC ;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `view_top_calamity_type`  AS SELECT `tc`.`type_calamity_type` AS `calamity_type`, count(`c`.`id`) AS `calamity_count` FROM (`tbl_calamity` `c` join `tbl_type_of_calamity` `tc` on(`c`.`calamity_type_id` = `tc`.`type_calamity_id`)) WHERE year(`c`.`calamity_date`) = year(curdate()) GROUP BY `tc`.`type_calamity_type` ORDER BY count(`c`.`id`) DESC ;
 
 -- --------------------------------------------------------
 
@@ -419,7 +419,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `view_total`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_total`  AS SELECT (select count(`tbl_evacuation_location`.`id`) from `tbl_evacuation_location`) AS `total_evacuations`, (select count(`tbl_calamity`.`id`) from `tbl_calamity` where `tbl_calamity`.`calamity_active` = 1) AS `active_calamities` ;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `view_total`  AS SELECT (select count(`tbl_evacuation_location`.`id`) from `tbl_evacuation_location`) AS `total_evacuations`, (select count(`tbl_calamity`.`id`) from `tbl_calamity` where `tbl_calamity`.`calamity_active` = 1) AS `active_calamities` ;
 
 --
 -- Indexes for dumped tables

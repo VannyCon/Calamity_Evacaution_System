@@ -114,7 +114,7 @@ require_once('../../components/header.php');
 </div>
 
 <div class="p-0 p-md-2">
-        <h3 class="text-dark">Evacaution Location</h3>
+        <h3 class="text-dark">Evacuation Location</h3>
         <div id="map"></div>
         <div class="m-3">
             <p class="mb-1"><img src="../../../assets/images/marker.png" alt="" srcset="" width="20"> Evacuation Center</p>

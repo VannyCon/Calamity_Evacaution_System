@@ -38,9 +38,9 @@ require_once('../../components/header.php')?>
     </div>
     <div id="map"></div>
     <div class="m-3">
-        <p class="mb-1"><img src="../../../assets/images/green.png" alt="" srcset="" width="20">Green 0 - 25% Occupied</p>
-        <p class="mb-1"><img src="../../../assets/images/blue.png" alt="" srcset="" width="20">Blue 26 - 50% Occupied</p>
-        <p class="mb-1"><img src="../../../assets/images/yellow.png" alt="" srcset="" width="20">Yellow 51 - 75% Occupied</p>
+        <p class="mb-1"><img src="../../../assets/images/green.png" alt="" srcset="" width="20">Green 25% Occupied</p>
+        <p class="mb-1"><img src="../../../assets/images/blue.png" alt="" srcset="" width="20">Blue 50% Occupied</p>
+        <p class="mb-1"><img src="../../../assets/images/yellow.png" alt="" srcset="" width="20">Yellow 75% Occupied</p>
         <p class="mb-1"><img src="../../../assets/images/red.png" alt="" srcset="" width="20">Red 100%</p>
     </div>
 

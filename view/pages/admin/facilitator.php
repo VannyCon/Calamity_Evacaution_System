@@ -52,8 +52,9 @@ $activeFacilitator = $facilitatorServices->getAllFacilitator();
             <table border="1" class="table p-3" id="pestData">
                 <thead>
                     <tr>
-                        <th>Username</th>
                         <th>Fullname</th>
+                        <th>Baranggay</th>
+                        <th>Evacuation Center</th>
                         <th>Contact Number</th>
                         <th>Action</th>
                     </tr>
@@ -64,9 +65,9 @@ $activeFacilitator = $facilitatorServices->getAllFacilitator();
                             <!-- table row highlight base on the current and max of the specific evacuation -->
                             
                             <tr>
-
-                                <td><?php echo htmlspecialchars($facilitator['facilitator_username']); ?></td>
                                 <td><?php echo htmlspecialchars($facilitator['facilitator_fullname']); ?></td>
+                                <td><?php echo htmlspecialchars($facilitator['location_name']); ?></td>
+                                <td><?php echo htmlspecialchars($facilitator['location_description']); ?></td>
                                 <td><?php echo htmlspecialchars($facilitator['facilitator_contact_number']); ?></td>
                                 <td><button type="button" class="btn btn-info mx-0 mx-md-2 my-1 my-md-0" 
                                         data-bs-toggle="modal" 

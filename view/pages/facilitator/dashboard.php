@@ -10,6 +10,8 @@ if (!isset($_SESSION['facilitator'])) {
 if(isset($_SESSION['facilitator_id'])){
     $id = $_SESSION['facilitator_id'];
     $evacautionStatus = $facilitatorServices->getEvacuationStatus($id);
+    $facilitator = $facilitatorServices->getSpecificFacilitator($id);
+    
 }
 
 ?>
@@ -53,7 +55,8 @@ if(isset($_SESSION['facilitator_id'])){
         </div>
         <div class="table-responsive card p-3">
             <!-- Table for nursery owners -->
-            <table border="1" class="table p-3" id="pestData">
+             <p><strong>Facilitator Name:</strong> <?php echo $facilitator['facilitator_fullname']?></p>
+             <table border="1" class="table p-3" id="pestData">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -107,7 +110,7 @@ if(isset($_SESSION['facilitator_id'])){
                                         Encode
                                     </button>
                                 <?php } ?>
-                                <a href="evacuaeinfo.php?locID=<?php echo htmlspecialchars($evacaution['location_id']); ?>&locName=<?php echo htmlspecialchars($evacaution['location_name']); ?>&locDesciption=<?php echo htmlspecialchars($evacaution['location_description']); ?>" class="btn btn-success">View Evacuees</a>
+                                <a href="evacuaeinfo.php?locID=<?php echo htmlspecialchars($evacaution['location_id']); ?>&locName=<?php echo htmlspecialchars($evacaution['location_name']); ?>&locDesciption=<?php echo htmlspecialchars($evacaution['location_description']); ?>&facilitatorName=<?php echo $facilitator['facilitator_fullname']?>" class="btn btn-success">View Evacuees</a>
                             </td>
 
                             </tr>

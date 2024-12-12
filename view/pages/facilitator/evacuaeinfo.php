@@ -13,6 +13,8 @@ if (!isset($_GET['locID']) && !isset($_GET['locName']) && !isset($_GET['locDesci
 $locID = $_GET['locID']; 
 $locName = $_GET['locName']; 
 $locDesciption = $_GET['locDesciption'];
+$facilitatorName = $_GET['facilitatorName'];
+
 
 
 
@@ -71,6 +73,8 @@ $evacueDatas = $facilitatorServices->getEvacueByLocID($locID);
         <div class="table-responsive card p-3">
             <p><strong>Baranggay: </strong> <?php echo $locName?></p>
             <p><strong>Center: </strong><?php echo $locDesciption?></p>
+            <p><strong>Facilitor Name: </strong><?php echo $facilitatorName ?></p>
+            
             <!-- Table for nursery owners -->
             <table border="1" class="table p-3" id="pestData">
                 <thead>
