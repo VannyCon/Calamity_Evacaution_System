@@ -1,62 +1,27 @@
 <?php 
    include_once('../../../controller/FacilitatorController.php');
    session_start();
-// check if the admin is already log in then it will go to index.php
-if (!isset($_SESSION['facilitator'])) {
-    header("Location: index.php");
-    exit();
+if (isset($_GET['calamity_id'])) {
+    $calamity_id = $_GET['calamity_id'];
+    $calamity_type = $_GET['calamity_type'];
+    $calamity_description = $_GET['description'];
+} else {
+    header('Location: report.php');
+    exit(); 
 }
 
-
-if(isset($_SESSION['facilitator_id'])){
-    $id = $_SESSION['facilitator_id'];
-    $evacautionStatus = $facilitatorServices->getEvacuationStatus($id);
-    $facilitator = $facilitatorServices->getSpecificFacilitator($id);
-    
-}
+$evacautionStatus = $facilitatorServices->getAllEvacuationByID($calamity_id);
 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calamity Management System</title>
-    <!-- Bootstrap CSS CDN -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="../../css/sidebar.css">
-    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="icon" href="../../../assets/images/logo.png" type="image/x-icon" />
-    <style>
- 
-    </style>
-</head>
-<body class="px-1 px-md-5">    
-
+<?php require_once('../../components/header.php')?>
 <div class="p-2 p-md-5">
 
     <div class="p-0">
         <div class="d-flex justify-content-between">
             <h3 class="text-dark">Evacaution Status Table</h3>
-            <div class='bottom-content'>
-                <form action='' method='post'>
-                    <input type='hidden' name='action' value='logout'>
-                        <button type='submit' class='d-flex w-100 btn btn-danger p-0 px-3 py-2' style='padding-left: -10px'>
-                            <i class='bx bx-log-out icon p-0 m-0' style='margin-left: -10px;'></i>
-                            <span class='text nav-text text-start' style='line-height: 1;'>Logout</span>
-                        </button>
-                </form>
-            </div>
         </div>
         <div class="table-responsive card p-3">
             <!-- Table for nursery owners -->
-             <p><strong>Facilitator Name:</strong> <?php echo $facilitator['facilitator_fullname']?></p>
              <table border="1" class="table p-3" id="pestData">
                 <thead>
                     <tr>
@@ -72,47 +37,18 @@ if(isset($_SESSION['facilitator_id'])){
                         <?php foreach ($evacautionStatus as $evacaution): ?>
                             <!-- table row highlight base on the current and max of the specific evacuation -->
                             
-                            <tr 
-                            
-                            class="<?php 
-                                        $percentage = 0;
-                                        if ($evacaution['location_max_accommodate'] > 0) {
-                                            $percentage = ($evacaution['location_current_no_of_evacuue'] / $evacaution['location_max_accommodate']) * 100;
-                                        }
-                                        if ($percentage <= 50) {
-                                            echo 'table-success';  
-                                        } elseif ($percentage <= 75) {
-                                            echo 'table-info';  
-                                        } elseif ($percentage <= 99) {
-                                            echo 'table-warning';  
-                                        } else {
-                                            echo 'table-danger';  
-                                        }
-                                    ?>
-                                    ">
+                            <tr>
                                 <td><?php echo htmlspecialchars($evacaution['id']); ?></td>
                                 <td><?php echo htmlspecialchars($evacaution['location_name']); ?></td>
                                 <td><?php echo htmlspecialchars($evacaution['location_description']); ?></td>
-                                <td><?php echo htmlspecialchars($evacaution['location_current_no_of_evacuue'].'/'.$evacaution['location_max_accommodate']); ?></td>
+                                <td><?php echo htmlspecialchars($evacaution['evacuee_count'].'/'.$evacaution['location_max_accommodate']); ?></td>
                                 <td>
-                                <?php if ($evacaution['location_current_no_of_evacuue'] == $evacaution['location_max_accommodate']) { ?>
-                                    <span class="text-dark mx-0 mx-md-2 my-1 my-md-0">Full</span>
-                                <?php } else { ?>
-                                    
-                                     <!-- Button to trigger modal -->
-                                     <button type="button" class="btn btn-info mx-0 mx-md-2 my-1 my-md-0" 
-                                        data-bs-toggle="modal" 
-                                        data-bs-target="#updateModal"
-                                        data-bs-id="<?php echo htmlspecialchars($evacaution['id']); ?>"
-                                        data-bs-locid="<?php echo htmlspecialchars($evacaution['location_id']); ?>"
-                                        data-bs-brgy="<?php echo htmlspecialchars($evacaution['location_name']); ?>"
-                                        data-bs-current="<?php echo htmlspecialchars($evacaution['location_current_no_of_evacuue']); ?>"
-                                        data-bs-max="<?php echo htmlspecialchars($evacaution['location_max_accommodate']); ?>">
-                                        Encode
-                                    </button>
-                                <?php } ?>
-                                <a href="evacuaeinfo.php?locID=<?php echo htmlspecialchars($evacaution['location_id']); ?>&locName=<?php echo htmlspecialchars($evacaution['location_name']); ?>&locDesciption=<?php echo htmlspecialchars($evacaution['location_description']); ?>&facilitatorName=<?php echo $facilitator['facilitator_fullname']?>" class="btn btn-success">View Evacuees</a>
+                                <a href="calamity_evacue_report.php?calamity_id=<?php echo $calamity_id; ?>&calamity_type=<?php echo $calamity_type; ?>&location_name=<?php echo urlencode($evacaution['location_name']); ?>&calamitytype=<?php echo urlencode($calamity_type); ?>&description=<?php echo urlencode($calamity_description); ?>" 
+                                class="btn btn-info">
+                                    Print Evacuees
+                                </a>
                             </td>
+
 
                             </tr>
                         <?php endforeach; ?>

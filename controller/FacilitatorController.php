@@ -1,5 +1,5 @@
 <?php 
-session_start();
+
     require('../../../services/FacilitatorServices.php');
     // Instantiate the class Facilitator to Get Services
     $facilitatorServices = new FacilitatorServices();

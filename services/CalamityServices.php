@@ -50,10 +50,12 @@ class CalamityServices extends config {
         try {
             $query = "SELECT 
                             c.id,
+                            c.calamity_id,
                             c.calamity_active,
                             c.calamity_date,
                             c.calamity_time,
                             c.calamity_description,
+                            c.calamity_end_datetime,
                             cs.status_level,
                             cs.status_color,
                             cs.status_description,
@@ -134,7 +136,21 @@ class CalamityServices extends config {
     // THIS FUNCTION HANDLE TO UPDATE THE CALAMITY
     public function updateCalamity($id, $calamity_type_id, $calamity_status_id, $calamity_description, $calamity_active, $calamity_date, $calamity_time) {
         try {
-            $query = "UPDATE `tbl_calamity` SET `calamity_type_id`= :calamity_type_id,`calamity_status_id`=:calamity_status_id, `calamity_description`=:calamity_description,`calamity_active`=:calamity_active,`calamity_date`=:calamity_date,`calamity_time`=:calamity_time WHERE id=:id";
+
+            $query = "UPDATE `tbl_calamity`
+                        SET 
+                            `calamity_type_id` = :calamity_type_id,
+                            `calamity_status_id` = :calamity_status_id,
+                            `calamity_description` = :calamity_description,
+                            `calamity_active` = :calamity_active,
+                            `calamity_date` = :calamity_date,
+                            `calamity_time` = :calamity_time,
+                            `calamity_end_datetime` = CASE 
+                                WHEN :calamity_active = 0 THEN NOW() 
+                                ELSE `calamity_end_datetime`
+                            END
+                        WHERE `id` = :id;
+                        ";
             $stmt = $this->pdo->prepare($query); // Prepare the query
             $stmt->bindParam(':id', $id);
             $stmt->bindParam(':calamity_type_id', $calamity_type_id);

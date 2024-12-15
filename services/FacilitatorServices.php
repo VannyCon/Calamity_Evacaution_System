@@ -46,6 +46,9 @@ class FacilitatorServices extends config {
         }
     }
 
+
+    
+
     public function getSpecificFacilitator($id) {
         try {
             $query = "SELECT `id`, `facilitator_username`, `facilitator_password`, `facilitator_fullname`, `facilitator_contact_number` FROM `tbl_facilitator_access` 
@@ -220,5 +223,135 @@ class FacilitatorServices extends config {
             return false;
         }
     }
+
+
+    // GET NOT ACTIVE CALAMITY
+    public function getAllEvacuation() {
+        try {
+            $query = "SELECT 
+                            c.id,
+                            c.calamity_description,
+                            el.location_id,
+                            el.location_name,
+                            el.location_description,
+                            COUNT(e.id) AS evacuee_count -- Count the number of evacuees in each evacuation location
+                        FROM 
+                            tbl_calamity c
+                        LEFT JOIN 
+                            tbl_evacuees_info e 
+                            ON e.created_date BETWEEN c.calamity_date AND c.calamity_end_datetime
+                        LEFT JOIN 
+                            tbl_evacuation_location el
+                            ON el.location_id = e.evacuation_locid
+                        WHERE 
+                            c.calamity_active = 0 
+                            AND c.calamity_id = :calamity_id
+                        GROUP BY 
+                            c.id, 
+                            el.location_id, 
+                            el.location_name, 
+                            el.location_description
+                        ";
+            $stmt = $this->pdo->prepare($query); // Prepare the query
+            $stmt->execute(); // Execute the query
+            $calamities =  $stmt->fetchAll(PDO::FETCH_ASSOC); // Fetch the result
+        
+            return  $calamities;// Outputs locations as JSON
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    }
+
+    public function getAllEvacuationByID($calamity_id) {
+        try {
+            $query = "SELECT 
+                            el.id,
+                            c.calamity_description,
+                            el.location_id,
+                            el.location_name,
+                            el.location_description,
+                            el.location_max_accommodate,
+                            COUNT(e.id) AS evacuee_count -- Count the number of evacuees in each evacuation location
+                        FROM 
+                            tbl_calamity c
+                        LEFT JOIN 
+                            tbl_evacuees_info e 
+                            ON e.created_date BETWEEN c.calamity_date AND c.calamity_end_datetime
+                        LEFT JOIN 
+                            tbl_evacuation_location el
+                            ON el.location_id = e.evacuation_locid
+                        WHERE 
+                            c.calamity_active = 0 
+                            AND c.calamity_id = :calamity_id
+                        GROUP BY 
+                            c.id, 
+                            el.location_id, 
+                            el.location_name, 
+                            el.location_description";
+    
+            // Prepare the query
+            $stmt = $this->pdo->prepare($query);
+            // Bind the calamity_id as a string
+            $stmt->bindParam(':calamity_id', $calamity_id);
+
+            $stmt->execute();
+    
+            // Fetch all results
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+            return $results; // Return the fetched data as an associative array
+        } catch (PDOException $e) {
+            // Log the error and return false
+            error_log('Database Error: ' . $e->getMessage());
+            return false;
+        }
+    }
+
+    // THIS FUNCTION HANDLE TO DELETE THE EVACUATION
+    public function reportEvacuaeInfo($calamity_id, $location_name) {
+        try {
+            $query = "SELECT 
+                            c.id,
+                            c.calamity_description,
+                            el.location_id,
+                            el.location_name,
+                            el.location_description,
+                            e.fullname,
+                            e.address,
+                            e.age,
+                            e.birthdate,
+                            e.sex,
+                            e.isPwd,
+                            e.isSenior
+                        FROM 
+                            tbl_calamity c
+                        LEFT JOIN 
+                            tbl_evacuees_info e 
+                            ON e.created_date BETWEEN c.calamity_date AND c.calamity_end_datetime
+                        LEFT JOIN 
+                            tbl_evacuation_location el
+                            ON el.location_id = e.evacuation_locid
+                        WHERE 
+                            c.calamity_active = 0 && c.calamity_id = :calamity_id &&  el.location_name = :location_name
+                        GROUP BY 
+                            c.id, el.location_id, el.location_name";
+
+            $stmt = $this->pdo->prepare($query); // Prepare the query
+            $stmt->bindParam(':calamity_id', $calamity_id );
+            $stmt->bindParam(':location_name', $location_name );
+            $stmt->execute(); // Execute the query
+             // Fetch all results
+             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+             return $results; // Return the fetched data as an associative array
+        } catch (PDOException $e) {
+            error_log('Database Error: ' . $e->getMessage()); // Log the error.
+            return false;
+        }
+        
+    }
+
+    
+
 }
 ?>

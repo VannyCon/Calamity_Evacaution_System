@@ -1,7 +1,7 @@
 <?php 
 $title = "admin";
 $part = "facilitator";
-
+session_start();
 require_once('../../../controller/FacilitatorController.php');
 $activeFacilitator = $facilitatorServices->getAllFacilitator();
 ?>

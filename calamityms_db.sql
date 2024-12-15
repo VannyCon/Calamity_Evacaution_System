@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 10, 2024 at 12:22 PM
+-- Generation Time: Dec 15, 2024 at 12:32 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -97,29 +97,31 @@ CREATE TABLE `tbl_calamity` (
   `calamity_description` varchar(255) NOT NULL,
   `calamity_active` tinyint(1) NOT NULL,
   `calamity_date` date NOT NULL,
-  `calamity_time` time NOT NULL
+  `calamity_time` time NOT NULL,
+  `calamity_end_datetime` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_calamity`
 --
 
-INSERT INTO `tbl_calamity` (`id`, `calamity_id`, `calamity_type_id`, `calamity_status_id`, `calamity_description`, `calamity_active`, `calamity_date`, `calamity_time`) VALUES
-(1, 'CALMITY-001', 'TYPE-001', 'Lvl-1', 'Bagyong Undoy', 1, '2024-10-08', '07:19:00'),
-(2, 'CALMITY-002', 'TYPE-002', 'Lvl-2', 'Bagyong Undoy', 0, '2024-10-02', '08:52:00'),
-(4, 'CALAMITY-003', 'TYPE-001', 'Lvl-1', 'Bagyong Undoy', 0, '2024-10-08', '07:19:00'),
-(5, 'CALAMITY-A8F5D19FEF', 'TYPE-004', 'Lvl-5', 'Bagyong Undoy', 0, '2024-10-17', '22:00:00'),
-(6, 'CALAMITY-BE49E1A565', 'TYPE-003', 'Lvl-2', 'Bagyong Undoy', 0, '2024-10-18', '14:12:00'),
-(7, 'CALAMITY-625ABB7B9E', 'TYPE-004', 'Lvl-2', 'Bagyong Undoy', 0, '2024-10-18', '18:10:00'),
-(8, 'CALAMITY-2B0CEBE98E', 'TYPE-001', 'Lvl-5', 'Bagyong Undoy', 0, '2024-10-18', '20:00:00'),
-(9, 'CALAMITY-A7E644B520', 'TYPE-002', 'Lvl-5', 'Bagyong Undoy', 0, '2024-10-20', '14:47:00'),
-(10, 'CALAMITY-ED18EE29C9', 'TYPE-005', 'Lvl-5', 'Bagyong Undoy', 0, '2024-10-21', '15:10:00'),
-(11, 'CALAMITY-61579C72C0', 'TYPE-001', 'Lvl-1', 'Bagyong Undoy', 0, '2024-11-12', '12:36:00'),
-(12, 'CALAMITY-2FD59C0734', 'TYPE-002', 'Lvl-4', 'Bagyong Undoy', 1, '2024-11-24', '20:05:00'),
-(13, 'CALAMITY-DF119E3B01', 'TYPE-002', 'Lvl-2', 'Magninture 2.4', 0, '2024-11-29', '21:41:00'),
-(14, 'CALAMITY-D8133C5060', 'TYPE-004', 'Lvl-3', 'Soil Problem', 0, '2024-11-27', '21:42:00'),
-(15, 'CALAMITY-E02620C3E4', 'TYPE-003', 'Lvl-5', 'High Rise of Watter', 1, '2024-11-30', '21:46:00'),
-(16, 'CALAMITY-5365A2CF4D', 'TYPE-005', 'Lvl-2', '222', 0, '2024-11-30', '21:45:00');
+INSERT INTO `tbl_calamity` (`id`, `calamity_id`, `calamity_type_id`, `calamity_status_id`, `calamity_description`, `calamity_active`, `calamity_date`, `calamity_time`, `calamity_end_datetime`) VALUES
+(1, 'CALMITY-001', 'TYPE-001', 'Lvl-1', 'Bagyong Undoy', 0, '2024-12-13', '07:19:00', '2024-12-13 20:34:21'),
+(2, 'CALMITY-002', 'TYPE-002', 'Lvl-2', 'Bagyong Undoy', 0, '2024-10-02', '08:52:00', '2024-12-13 07:16:42'),
+(4, 'CALAMITY-003', 'TYPE-001', 'Lvl-1', 'Bagyong Undoy', 0, '2024-10-08', '07:19:00', '2024-12-13 07:16:42'),
+(5, 'CALAMITY-A8F5D19FEF', 'TYPE-004', 'Lvl-5', 'Bagyong Undoy', 0, '2024-10-17', '22:00:00', '2024-12-13 07:16:42'),
+(6, 'CALAMITY-BE49E1A565', 'TYPE-003', 'Lvl-2', 'Bagyong Undoy', 0, '2024-10-18', '14:12:00', '2024-12-13 07:16:42'),
+(7, 'CALAMITY-625ABB7B9E', 'TYPE-004', 'Lvl-2', 'Bagyong Undoy', 0, '2024-10-18', '18:10:00', '2024-12-13 07:16:42'),
+(8, 'CALAMITY-2B0CEBE98E', 'TYPE-001', 'Lvl-5', 'Bagyong Undoy', 0, '2024-10-18', '20:00:00', '2024-12-13 07:16:42'),
+(9, 'CALAMITY-A7E644B520', 'TYPE-002', 'Lvl-5', 'Bagyong Undoy', 0, '2024-10-20', '14:47:00', '2024-12-13 07:16:42'),
+(10, 'CALAMITY-ED18EE29C9', 'TYPE-005', 'Lvl-5', 'Bagyong Undoy', 0, '2024-10-21', '15:10:00', '2024-12-13 07:16:42'),
+(11, 'CALAMITY-61579C72C0', 'TYPE-001', 'Lvl-1', 'Bagyong Undoy', 0, '2024-11-12', '12:36:00', '2024-12-13 07:16:42'),
+(12, 'CALAMITY-2FD59C0734', 'TYPE-002', 'Lvl-4', 'Bagyong Laura', 0, '2024-11-24', '20:05:00', '2024-12-13 07:23:46'),
+(13, 'CALAMITY-DF119E3B01', 'TYPE-002', 'Lvl-2', 'Magninture 2.4', 0, '2024-11-29', '21:41:00', '2024-12-13 07:16:42'),
+(14, 'CALAMITY-D8133C5060', 'TYPE-004', 'Lvl-3', 'Soil Problem', 0, '2024-11-27', '21:42:00', '2024-12-13 07:16:42'),
+(15, 'CALAMITY-E02620C3E4', 'TYPE-003', 'Lvl-5', 'High Rise of Watter', 0, '2024-11-30', '21:46:00', '2024-12-14 05:32:13'),
+(16, 'CALAMITY-5365A2CF4D', 'TYPE-005', 'Lvl-2', '222', 0, '2024-11-30', '21:45:00', '2024-12-13 07:16:42'),
+(17, 'CALAMITY-6E760FC3BB', 'TYPE-001', 'Lvl-2', 'Bagyong Neneng', 0, '2024-12-14', '05:32:00', '2024-12-14 05:35:59');
 
 -- --------------------------------------------------------
 
@@ -169,7 +171,7 @@ CREATE TABLE `tbl_evacuation_location` (
 --
 
 INSERT INTO `tbl_evacuation_location` (`id`, `location_id`, `location_name`, `location_description`, `location_latitude`, `location_longhitude`, `location_current_no_of_evacuue`, `location_max_accommodate`, `facilitator_id`) VALUES
-(9, 'LOCID-60AFBD759F', 'Tadlong', 'Filomino Pascual Elementary School', '10.8680771', '123.3461495', 8, 100, 10),
+(9, 'LOCID-60AFBD7345', 'Tadlong', 'Filomino Pascual Elementary School', '10.8680771', '123.3461495', 0, 100, 10),
 (11, 'LOCID-F6C479EDFF', 'Tadlong', 'Hautea Elementary School', '10.8481295', '123.3455575', 0, 200, 11),
 (12, 'LOCID-27847EC0CB', 'Fabrica', 'Gil Lopez Elementary School', '10.8824647', '123.3475769', 0, 250, 12),
 (14, 'LOCID-07C9BDD16F', 'Paraiso', 'Eusebio Lopez Memorial Integrated School', '10.8900853', '123.3540872', 0, 500, 14),
@@ -249,14 +251,19 @@ INSERT INTO `tbl_evacuees_info` (`id`, `evacuation_locid`, `fullname`, `address`
 (3, 'LOCID-27847EC0CB', 'Test Test', 'Cadiz City, Negros Occidental', '123', '2024-11-01', 'Female', 0, 0, 0, '2024-11-30 01:51:51'),
 (4, 'LOCID-27847EC0CB', 'ss', 'ss', '22', '2024-11-30', 'Male', 1, 0, 0, '2024-11-30 02:30:55'),
 (5, 'LOCID-07C9BDD16F', 'Marcky Marts', 'Street Villaren', '24', '2024-11-30', 'Male', 0, 0, 0, '2024-11-30 02:31:35'),
-(6, 'LOCID-60AFBD759F', 'Mark David Libero', 'Sagay City, Negros Occidental', '61', '2000-01-19', 'Male', 0, 0, 1, '2024-12-10 10:45:29'),
-(7, 'LOCID-60AFBD759F', 'asdsadasd asddas', 'Sagay City, Negros Occidental', '23', '2024-12-04', 'Female', 0, 0, 1, '2024-12-10 10:48:08'),
-(8, 'LOCID-60AFBD759F', 's', 's', '23', '2024-12-18', 'Male', 0, 0, 1, '2024-12-10 10:51:28'),
-(9, 'LOCID-60AFBD759F', 'ss', 'sss', '232', '2024-12-03', 'Male', 0, 0, 1, '2024-12-10 10:53:03'),
-(10, 'LOCID-60AFBD759F', 'g', 'b', '23', '2025-01-02', 'Female', 0, 0, 1, '2024-12-10 10:55:15'),
-(11, 'LOCID-60AFBD759F', 'c', 'c', '23', '2004-09-20', 'Male', 1, 1, 1, '2024-12-10 10:56:05'),
-(12, 'LOCID-60AFBD759F', 'vcx', 's', '35', '2024-12-20', 'Male', 1, 0, 1, '2024-12-10 10:56:36'),
-(13, 'LOCID-60AFBD759F', 'x', 's', '34', '2004-09-09', 'Male', 0, 1, 1, '2024-12-10 10:56:50');
+(6, 'LOCID-60AFBD759F', 'Mark David Libero', 'Sagay City, Negros Occidental', '61', '2000-01-19', 'Male', 0, 0, 0, '2024-12-10 10:45:29'),
+(7, 'LOCID-60AFBD759F', 'asdsadasd asddas', 'Sagay City, Negros Occidental', '23', '2024-12-04', 'Female', 0, 0, 0, '2024-12-10 10:48:08'),
+(8, 'LOCID-60AFBD759F', 's', 's', '23', '2024-12-18', 'Male', 0, 0, 0, '2024-12-10 10:51:28'),
+(9, 'LOCID-60AFBD759F', 'ss', 'sss', '232', '2024-12-03', 'Male', 0, 0, 0, '2024-12-10 10:53:03'),
+(10, 'LOCID-60AFBD759F', 'g', 'b', '23', '2025-01-02', 'Female', 0, 0, 0, '2024-12-10 10:55:15'),
+(11, 'LOCID-60AFBD759F', 'c', 'c', '23', '2004-09-20', 'Male', 1, 1, 0, '2024-12-10 10:56:05'),
+(12, 'LOCID-60AFBD759F', 'vcx', 's', '35', '2024-12-20', 'Male', 1, 0, 0, '2024-12-10 10:56:36'),
+(13, 'LOCID-60AFBD759F', 'x', 's', '34', '2004-09-09', 'Male', 0, 1, 0, '2024-12-10 10:56:50'),
+(14, 'LOCID-60AFBD759F', 'sssssss', 'ssssssss', '23', '2024-12-09', 'Male', 1, 0, 0, '2024-12-13 12:07:09'),
+(15, 'LOCID-F6C479EDFF', 'isa', 'duwa', '3', '20000-09-29', 'Female', 1, 1, 0, '2024-12-13 12:33:45'),
+(16, 'LOCID-60AFBD759F', 'f9', 'f9', '12', '2000-09-09', 'Male', 1, 0, 0, '2024-12-13 21:33:07'),
+(17, 'LOCID-F6C479EDFF', 'f11', 'f11', '20', '20000-02-02', 'Female', 0, 1, 0, '2024-12-13 21:33:32'),
+(18, 'LOCID-AF31286965', 'f15', 'f15', '15', '2001-12-15', 'Female', 1, 0, 0, '2024-12-13 21:34:05');
 
 -- --------------------------------------------------------
 
@@ -499,7 +506,7 @@ ALTER TABLE `tbl_announcement`
 -- AUTO_INCREMENT for table `tbl_calamity`
 --
 ALTER TABLE `tbl_calamity`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `tbl_calamity_status`
@@ -517,7 +524,7 @@ ALTER TABLE `tbl_evacuation_location`
 -- AUTO_INCREMENT for table `tbl_evacuees_info`
 --
 ALTER TABLE `tbl_evacuees_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `tbl_facilitator_access`
